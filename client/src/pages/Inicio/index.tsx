@@ -43,6 +43,7 @@ const Inicio: FC = () => {
                     <Post />
                     <Post />
                     <Post />
+                    <Post />
                 </PostsDiv>
             </PostsSection>
         </>

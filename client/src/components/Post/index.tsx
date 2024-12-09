@@ -5,6 +5,7 @@ import styled from "styled-components";
 const ContainerDiv = styled.div`
     display: flex;
     flex-direction: column;
+    margin-bottom: 0.5em;
 
     img{
         max-width: 37em;
@@ -21,7 +22,7 @@ const InfosDiv = styled.div`
     }
 
     .infoIcon{
-        margin-top: 0.25em;
+        margin-top: 0.2em;
     }
 
 `
@@ -33,7 +34,7 @@ const Post: FC = () => {
             <img src="/images/foto1.png" alt="foto1" />
             <InfosDiv>
                 <h4>Title</h4>
-                <GrShare size={20} className="infoIcon"/>
+                <GrShare size={18} className="infoIcon"/>
             </InfosDiv>
         </ContainerDiv>
     )

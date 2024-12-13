@@ -1,8 +1,10 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import ReactQuill from "react-quill";
 import styled from "styled-components";
 import "react-quill/dist/quill.snow.css";
 import { FaFileAlt } from "react-icons/fa";
+import { usePostContext } from "../../context/contexto";
+import axios from "axios";
 
 const MainContainer = styled.main`
     display: flex;
@@ -15,7 +17,7 @@ const SectionPainel = styled.section`
     flex-direction: column;
     align-items: start;
     width: 40em;
-    height: 32em;
+    height: 35.7em;
     padding: 0.6em 1em;
     background-color: greenyellow;
     border-radius: 0.4em;
@@ -78,7 +80,36 @@ const DivImageDisplay = styled.div`
 const DivTags = styled.div`
     display: flex;
     flex-direction: column;
+    width: 100%;
+`
+const DivTagsButtons = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.6em;
+    width: 80%;
 
+    button{
+        border: 1px solid black;
+        border-radius: 0.4em;
+        padding: 0.4em 0.7em;
+        background: linear-gradient(135deg, #00ff15, #44792c);
+        cursor: pointer;
+    }
+`
+const DivSubmit = styled.div`
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-top: 1em;
+
+    button{
+        width: 100%;
+        font-size: 1.2em;
+        padding: 0.5em 0em;
+        background: linear-gradient(135deg, #c9b65c, #000000);
+        border: 1px solid black;
+        border-radius: 0.2em;
+    }
 `
 const StyledQuill = styled(ReactQuill)`
     margin-top: 0.4em;
@@ -95,25 +126,46 @@ const StyledQuill = styled(ReactQuill)`
 `
 
 const CriarPost: FC = () => {
+
+    const { tags } = usePostContext();
+    const [inputTitle, setInputTitle] = useState<string>('');
+    const [inputDescription, setInputDescription] = useState<string>(''); //fix this
+    const [inputImage, setInputImage] = useState<string>('');
+    const [inputTag, setInputTag] = useState<string[]>([]);
+
+    const submitPost = () => {
+        const postData = async () => {
+            await axios.post('http://localhost:3030/posts', {
+                title: inputTitle,
+                description: inputDescription,
+                inputImage,
+                inputTag,
+            }, { headers: { 'Content-Type': 'application/json' } })
+                .then(response => console.log("response sucess: " + response.data))
+                .catch(error => console.error("response error: " + error));
+        }
+        postData();
+    }
+
     return (
         <MainContainer>
             <SectionPainel>
                 <DivTitulo>
                     <label htmlFor="title">Title</label>
-                    <input type="text" name="title" />
+                    <input type="text" name="title" value={inputTitle} onChange={(e) => setInputTitle(e.target.value)} />
                 </DivTitulo>
 
                 <DivDescription>
                     <label htmlFor="description">Description</label>
-                    <StyledQuill />
+                    <StyledQuill value={inputDescription} onChange={(e) => setInputDescription(e.target.value)} />
                 </DivDescription>
 
                 <DivImage>
                     <label>Image</label>
                     <DivImageDisplay>
-                        <input type="text" name="image_url" placeholder="image-url"/>
+                        <input type="text" name="image_url" placeholder="image-url" />
                         <button title="Selecionar imagem...">
-                            <FaFileAlt size={20} className="fileIconButton"/>
+                            <FaFileAlt size={20} className="fileIconButton" />
                             <input type="file" name="image_file" />
                         </button>
                     </DivImageDisplay>
@@ -121,7 +173,16 @@ const CriarPost: FC = () => {
 
                 <DivTags>
                     <label>Tags</label>
+                    <DivTagsButtons>
+                        {tags.map((tag) => (
+                            <button>{tag.name}</button>
+                        ))}
+                    </DivTagsButtons>
                 </DivTags>
+
+                <DivSubmit>
+                    <button onClick={() => submitPost()}>Create Post</button>
+                </DivSubmit>
             </SectionPainel>
         </MainContainer>
     )

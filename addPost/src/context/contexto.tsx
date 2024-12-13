@@ -4,14 +4,19 @@ import { createContext, FC, ReactNode, useContext, useEffect, useState } from "r
 interface interfaceContexto {
     posts: { id: number, title: string, description: string, image_url: string, created_at: string, tags: string[] }[];
     setPosts: (posts: { id: number, title: string, description: string, image_url: string, created_at: string, tags: string[] }[]) => void;
+    tags: { name: string }[];
+    setTags: (tags: { name: string }[]) => void;
 }
 
 export const Contexto = createContext<interfaceContexto | null>(null)
 Contexto.displayName = "PostsContexto"
 
 export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
+    
+    const tagsArray = [{ name: "Navagador" }, { name: "VSCode" }, { name: "Themes"}, {name: "WebTools"}]
 
     const [posts, setPosts] = useState<interfaceContexto['posts']>([]);
+    const [tags, setTags] = useState<interfaceContexto['tags']>(tagsArray);
 
 
     //PEGAR POSTS
@@ -41,7 +46,9 @@ export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
     return (
         <Contexto.Provider value={{
             posts,
-            setPosts
+            setPosts,
+            tags,
+            setTags,
         }}>
             {children}
         </Contexto.Provider>
@@ -50,11 +57,8 @@ export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
 export const usePostContext = () => {
     const contexto = useContext(Contexto);
-    try {
-        if (contexto) {
-            return contexto
-        }
-    } catch (err) {
-        console.error('Context error: ' + err);
+    if(!contexto){
+        throw new Error('Context error!')
     }
+    return contexto;
 }

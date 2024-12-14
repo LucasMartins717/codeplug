@@ -129,7 +129,7 @@ const CriarPost: FC = () => {
 
     const { tags } = usePostContext();
     const [inputTitle, setInputTitle] = useState<string>('');
-    const [inputDescription, setInputDescription] = useState<string>(''); //fix this
+    const [inputDescription, setInputDescription] = useState<string>('');
     const [inputImage, setInputImage] = useState<string>('');
     const [inputTag, setInputTag] = useState<string[]>([]);
 
@@ -147,6 +147,14 @@ const CriarPost: FC = () => {
         postData();
     }
 
+    const selectedTags = (name: string) => {
+        if (inputTag.includes(name)) {
+            setInputTag(inputTag.filter((tag) => tag !== name));
+        } else {
+            setInputTag([...inputTag, name]);
+        }
+    }
+
     return (
         <MainContainer>
             <SectionPainel>
@@ -157,13 +165,13 @@ const CriarPost: FC = () => {
 
                 <DivDescription>
                     <label htmlFor="description">Description</label>
-                    <StyledQuill value={inputDescription} onChange={(e) => setInputDescription(e.target.value)} />
+                    <StyledQuill value={inputDescription} onChange={(valueQuill) => setInputDescription(valueQuill)} />
                 </DivDescription>
 
                 <DivImage>
                     <label>Image</label>
                     <DivImageDisplay>
-                        <input type="text" name="image_url" placeholder="image-url" />
+                        <input type="text" name="image_url" placeholder="image-url" value={inputImage} onChange={(e) => setInputImage(e.target.value)} />
                         <button title="Selecionar imagem...">
                             <FaFileAlt size={20} className="fileIconButton" />
                             <input type="file" name="image_file" />
@@ -175,13 +183,13 @@ const CriarPost: FC = () => {
                     <label>Tags</label>
                     <DivTagsButtons>
                         {tags.map((tag) => (
-                            <button>{tag.name}</button>
+                            <button onClick={() => selectedTags(tag.name)}>{tag.name}</button>
                         ))}
                     </DivTagsButtons>
                 </DivTags>
 
                 <DivSubmit>
-                    <button onClick={() => submitPost()}>Create Post</button>
+                    <button onClick={() => console.log(inputTitle, inputDescription, inputImage, inputTag)}>Create Post</button>
                 </DivSubmit>
             </SectionPainel>
         </MainContainer>

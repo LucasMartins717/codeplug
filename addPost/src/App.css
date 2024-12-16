@@ -1,3 +1,10 @@
+:root{
+  --cor-background-claro: #807f9b;
+  --cor-background-escuro: #2d2a4e;
+  --cor-fonte-clara: #bebceb;
+}
+
+
 *{
   margin: 0;
   padding: 0;
@@ -5,5 +12,5 @@
 }
 
 body{
-  background-color: #202020;
+  background-color: var(--cor-background-claro);
 }

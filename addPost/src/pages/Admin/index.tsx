@@ -10,7 +10,6 @@ const MainContainer = styled.main`
 `
 const OpcoesContainer = styled.section`
     display: flex;
-    flex-direction: column;
     justify-content: center;
 
     ul{
@@ -21,7 +20,7 @@ const OpcoesContainer = styled.section`
     }
 
     li{
-        background-color: aliceblue;
+        background-color: var(--cor-background-escuro);
         padding: 0.5em 3em;
         margin-bottom: 1em;
         border: 1px solid black;
@@ -30,7 +29,7 @@ const OpcoesContainer = styled.section`
     }
 
     .linkPosts{
-        color: black;
+        color: var(--cor-background-claro);
         text-decoration: none;
         font-weight: bold;
     }

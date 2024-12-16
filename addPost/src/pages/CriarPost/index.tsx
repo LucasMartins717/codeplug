@@ -11,6 +11,7 @@ const MainContainer = styled.main`
     justify-content: center;
     align-items: center;
     height: 100vh;
+    color: var(--cor-background-claro);
 `
 const SectionPainel = styled.section`
     display: flex;
@@ -19,7 +20,7 @@ const SectionPainel = styled.section`
     width: 40em;
     height: 35.7em;
     padding: 0.6em 1em;
-    background-color: greenyellow;
+    background-color: var(--cor-background-escuro);
     border-radius: 0.4em;
 
     label{
@@ -92,8 +93,13 @@ const DivTagsButtons = styled.div`
         border: 1px solid black;
         border-radius: 0.4em;
         padding: 0.4em 0.7em;
-        background: linear-gradient(135deg, #00ff15, #44792c);
+        background: linear-gradient(135deg, #9796b8, #74738d);
         cursor: pointer;
+    }
+
+    .tagSelected{
+        background: linear-gradient(135deg, #403c6e, #363468);
+        color: var(--cor-background-claro);
     }
 `
 const DivSubmit = styled.div`
@@ -106,9 +112,10 @@ const DivSubmit = styled.div`
         width: 100%;
         font-size: 1.2em;
         padding: 0.5em 0em;
-        background: linear-gradient(135deg, #c9b65c, #000000);
+        background: linear-gradient(135deg, #9796b8, #73728b);
         border: 1px solid black;
         border-radius: 0.2em;
+        cursor: pointer;
     }
 `
 const StyledQuill = styled(ReactQuill)`
@@ -117,11 +124,13 @@ const StyledQuill = styled(ReactQuill)`
     max-height: 20em;
     height: 10em;
     background-color: #ffffff;
+    color: #000000;
+
     .ql-container {
-        background-color: #ffffff; /* Cor do fundo do Quill */
+        background-color: #ffffff;
     }
     .ql-editor {
-        padding: 0.2em 0.5em 0.5em; /* Garante que o texto tenha padding adequado */
+        padding: 0.2em 0.5em 0.5em;
     }
 `
 
@@ -183,7 +192,11 @@ const CriarPost: FC = () => {
                     <label>Tags</label>
                     <DivTagsButtons>
                         {tags.map((tag) => (
-                            <button onClick={() => selectedTags(tag.name)}>{tag.name}</button>
+                            <button 
+                            key={tag.name} 
+                            onClick={() => selectedTags(tag.name)}
+                            className={inputTag.includes(tag.name) ? 'tagSelected' : ''}
+                            >{tag.name}</button>
                         ))}
                     </DivTagsButtons>
                 </DivTags>

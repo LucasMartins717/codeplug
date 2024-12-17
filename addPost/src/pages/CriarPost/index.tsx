@@ -1,10 +1,11 @@
-import { FC, useState } from "react";
+import React, { FC, useState } from "react";
 import ReactQuill from "react-quill";
 import styled from "styled-components";
 import "react-quill/dist/quill.snow.css";
 import { FaFileAlt } from "react-icons/fa";
 import { usePostContext } from "../../context/contexto";
 import axios from "axios";
+import QuillText from "../../components/QuillText";
 
 const MainContainer = styled.main`
     display: flex;
@@ -118,21 +119,6 @@ const DivSubmit = styled.div`
         cursor: pointer;
     }
 `
-const StyledQuill = styled(ReactQuill)`
-    margin-top: 0.4em;
-    max-width: 100%;
-    max-height: 20em;
-    height: 10em;
-    background-color: #ffffff;
-    color: #000000;
-
-    .ql-container {
-        background-color: #ffffff;
-    }
-    .ql-editor {
-        padding: 0.2em 0.5em 0.5em;
-    }
-`
 
 const CriarPost: FC = () => {
 
@@ -140,16 +126,25 @@ const CriarPost: FC = () => {
     const [inputTitle, setInputTitle] = useState<string>('');
     const [inputDescription, setInputDescription] = useState<string>('');
     const [inputImage, setInputImage] = useState<string>('');
+    const [inputFileImage, setInputFileImage] = useState<File | null>(null);
     const [inputTag, setInputTag] = useState<string[]>([]);
 
     const submitPost = () => {
+
+        const formData = new FormData();
+        formData.append('title', inputTitle);
+        formData.append('description', inputDescription);
+        formData.append('tags', JSON.stringify(inputTag));
+
+        if (inputFileImage) {
+            formData.append('image_url', inputFileImage);
+        } else if (inputImage) {
+            formData.append('image_url', inputImage);
+        }
+
         const postData = async () => {
-            await axios.post('http://localhost:3030/posts', {
-                title: inputTitle,
-                description: inputDescription,
-                inputImage,
-                inputTag,
-            }, { headers: { 'Content-Type': 'application/json' } })
+            await axios.post('http://localhost:3030/posts', formData,
+                { headers: { 'Content-Type': 'multipart/form-data' } })
                 .then(response => console.log("response sucess: " + response.data))
                 .catch(error => console.error("response error: " + error));
         }
@@ -164,6 +159,12 @@ const CriarPost: FC = () => {
         }
     }
 
+    const handleFileSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setInputFileImage(e.target.files[0]);
+        }
+    }
+
     return (
         <MainContainer>
             <SectionPainel>
@@ -174,7 +175,7 @@ const CriarPost: FC = () => {
 
                 <DivDescription>
                     <label htmlFor="description">Description</label>
-                    <StyledQuill value={inputDescription} onChange={(valueQuill) => setInputDescription(valueQuill)} />
+                    <QuillText value={inputDescription} setState={setInputDescription} />
                 </DivDescription>
 
                 <DivImage>
@@ -183,7 +184,7 @@ const CriarPost: FC = () => {
                         <input type="text" name="image_url" placeholder="image-url" value={inputImage} onChange={(e) => setInputImage(e.target.value)} />
                         <button title="Selecionar imagem...">
                             <FaFileAlt size={20} className="fileIconButton" />
-                            <input type="file" name="image_file" />
+                            <input type="file" name="image_file" onChange={(e) => handleFileSelect(e)} />
                         </button>
                     </DivImageDisplay>
                 </DivImage>
@@ -192,17 +193,17 @@ const CriarPost: FC = () => {
                     <label>Tags</label>
                     <DivTagsButtons>
                         {tags.map((tag) => (
-                            <button 
-                            key={tag.name} 
-                            onClick={() => selectedTags(tag.name)}
-                            className={inputTag.includes(tag.name) ? 'tagSelected' : ''}
+                            <button
+                                key={tag.name}
+                                onClick={() => selectedTags(tag.name)}
+                                className={inputTag.includes(tag.name) ? 'tagSelected' : ''}
                             >{tag.name}</button>
                         ))}
                     </DivTagsButtons>
                 </DivTags>
 
                 <DivSubmit>
-                    <button onClick={() => console.log(inputTitle, inputDescription, inputImage, inputTag)}>Create Post</button>
+                    <button onClick={() => console.log(inputDescription, inputFileImage, inputImage, inputTag, inputTitle)}>Create Post</button>
                 </DivSubmit>
             </SectionPainel>
         </MainContainer>

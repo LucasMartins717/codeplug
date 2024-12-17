@@ -6,11 +6,14 @@ const ContainerDiv = styled.div`
     display: flex;
     flex-direction: column;
     margin-bottom: 0.5em;
-
+    
     img{
+        min-width: 37em;
         max-width: 37em;
-        width: 100%;
+        min-height: 21em;
+        max-height: 21em;
         background-size: contain;
+        filter: drop-shadow(0em 0em 0.2em);
     }
 `
 const InfosDiv = styled.div`
@@ -28,12 +31,12 @@ const InfosDiv = styled.div`
 `
 
 
-const Post: FC = () => {
+const Post: FC<{title: string, image: string }> = ({title, image}) => {
     return (
         <ContainerDiv>
-            <img src="/images/foto1.png" alt="foto1" />
+            <img src={image} alt="foto1" />
             <InfosDiv>
-                <h4>Title</h4>
+                <h4>{title}</h4>
                 <GrShare size={18} className="infoIcon"/>
             </InfosDiv>
         </ContainerDiv>

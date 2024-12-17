@@ -23,12 +23,7 @@ export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
     useEffect(() => {
         const fetchPosts = async () => {
             try {
-                const response = await axios.get('http://localhost:3030/posts', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
+                const response = await axios.get('http://localhost:3030/posts');
 
                 if (!response) {
                     throw new Error('Erro no GET buscando posts.')

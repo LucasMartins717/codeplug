@@ -2,6 +2,7 @@ import { FC } from "react";
 import Cabecalho from "../../components/Cabecalho";
 import styled from "styled-components";
 import Post from "../../components/Post";
+import { usePostContext } from "../../context/contexto";
 
 const PostsSection = styled.section`
     display: flex;
@@ -28,6 +29,9 @@ const PostsDiv = styled.div`
 `
 
 const Inicio: FC = () => {
+
+    const { posts } = usePostContext();
+
     return (
         <>
             <Cabecalho />
@@ -40,10 +44,9 @@ const Inicio: FC = () => {
                     <h2>WebTools</h2>
                 </FilterDiv>
                 <PostsDiv>
-                    <Post />
-                    <Post />
-                    <Post />
-                    <Post />
+                    {posts.map((post) => (
+                        <Post key={post.id} image={post.image_url} title={post.title}/>
+                    ))}
                 </PostsDiv>
             </PostsSection>
         </>

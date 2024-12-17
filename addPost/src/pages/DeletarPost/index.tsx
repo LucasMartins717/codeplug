@@ -2,6 +2,7 @@ import { FC } from "react";
 import styled from "styled-components";
 import Post from "../../components/Post";
 import { FaRegTrashAlt } from "react-icons/fa";
+import { usePostContext } from "../../context/contexto";
 
 const MainContainer = styled.main`
     display: flex;
@@ -31,19 +32,19 @@ const DivPost = styled.div`
 `
 
 const DeletarPost: FC = () => {
+
+    const { posts } = usePostContext();
+
     return (
         <MainContainer>
             <SectionPosts>
                 <h1>Escolha algum post para deletar</h1>
-                <DivPost>
-                    <Post icon={<FaRegTrashAlt size={49} />} />
-                </DivPost>
-                <DivPost>
-                    <Post icon={<FaRegTrashAlt size={49} />} />
-                </DivPost>
-                <DivPost>
-                    <Post icon={<FaRegTrashAlt size={49} />} />
-                </DivPost>
+
+                {posts.map((post) => (
+                    <DivPost key={post.id}>
+                        <Post id={post.id} title={post.title} image={post.image_url} icon={<FaRegTrashAlt size={49} />} />
+                    </DivPost>
+                ))}
             </SectionPosts>
         </MainContainer>
     )

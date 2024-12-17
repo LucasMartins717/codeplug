@@ -2,6 +2,14 @@ import { FC, ReactNode } from "react";
 import { GrShare } from "react-icons/gr";
 import styled from "styled-components";
 
+interface interfacePosts {
+    id: number,
+    title: string,
+    image: string,
+    icon: ReactNode,
+    handleClick: (postId: number) => void;
+}
+
 const ContainerDiv = styled.div`
     display: flex;
     flex-direction: column;
@@ -9,9 +17,12 @@ const ContainerDiv = styled.div`
     color: white;
 
     img{
+        min-width: 37em;
         max-width: 37em;
-        width: 100%;
+        min-height: 21em;
+        max-height: 21em;
         background-size: contain;
+        filter: drop-shadow(0em 0em 0.2em #000000);
     }
 `
 const ImageDiv = styled.div`
@@ -49,17 +60,17 @@ const InfosDiv = styled.div`
 `
 
 
-const Post: FC<{ icon: ReactNode }> = ({ icon }) => {
+const Post: FC<interfacePosts> = ({ id, title, image, icon, handleClick }) => {
     return (
-        <ContainerDiv>
+        <ContainerDiv key={id}>
             <ImageDiv>
-                <img src="/images/foto1.png" alt="foto1" />
+                <img onClick={() => handleClick(id)} src={image} alt="foto1" />
                 <div className="imageIconHover">
                     {icon}
                 </div>
             </ImageDiv>
             <InfosDiv>
-                <h4>Title</h4>
+                <h4>{title}</h4>
                 <GrShare size={18} className="infoIcon" />
             </InfosDiv>
         </ContainerDiv>

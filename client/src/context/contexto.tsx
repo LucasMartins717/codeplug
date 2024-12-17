@@ -45,7 +45,7 @@ export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
     )
 }
 
-export const useContexto = () => {
+export const usePostContext = () => {
     const contexto = useContext(Contexto);
     if (!contexto) {
         throw new Error("Erro no contexto!")

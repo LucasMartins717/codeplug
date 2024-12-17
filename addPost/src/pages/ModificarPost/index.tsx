@@ -2,6 +2,8 @@ import { FC } from "react";
 import styled from "styled-components";
 import Post from "../../components/Post";
 import { FaEdit } from "react-icons/fa";
+import { usePostContext } from "../../context/contexto";
+import { useNavigate } from "react-router-dom";
 
 const MainContainer = styled.main`
     display: flex;
@@ -31,31 +33,24 @@ const DivPost = styled.div`
 `
 
 const ModificarPost: FC = () => {
+
+    const { posts } = usePostContext();
+    const navigate = useNavigate();
+
+    const handleEditPost = (postId: number) => {
+        navigate(`/modifyPost-${postId}`)
+    }
+
     return (
         <MainContainer>
             <SectionPosts>
                 <h1>Escolha um post pra modificar!</h1>
-                <DivPost>
-                    <Post icon={<FaEdit size={49} />} />
-                </DivPost>
-                <DivPost>
-                    <Post icon={<FaEdit size={49} />} />
-                </DivPost>
-                <DivPost>
-                    <Post icon={<FaEdit size={49} />} />
-                </DivPost>
-                <DivPost>
-                    <Post icon={<FaEdit size={49} />} />
-                </DivPost>
-                <DivPost>
-                    <Post icon={<FaEdit size={49} />} />
-                </DivPost>
-                <DivPost>
-                    <Post icon={<FaEdit size={49} />} />
-                </DivPost>
-                <DivPost>
-                    <Post icon={<FaEdit size={49} />} />
-                </DivPost>
+
+                {posts.map((post) => (
+                    <DivPost key={post.id}>
+                        <Post id={post.id} title={post.title} image={post.image_url} handleClick={() => handleEditPost(post.id)} icon={<FaEdit size={49} />} />
+                    </DivPost>
+                ))}
             </SectionPosts>
         </MainContainer>
     )

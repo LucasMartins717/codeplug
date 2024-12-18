@@ -28,6 +28,22 @@ app.get("/posts", async (req, res) => {
     }
 })
 
+app.get("/posts/:id", async (req, res) => {
+    const postId = req.params.id;
+    try {
+        const response = await db.query("SELECT * FROM posts WHERE id = $1", [postId]);
+
+        if(!response){
+            return res.status(404).json({error: "Post não encontrado"});
+        }
+
+        res.json(response.rows[0]);
+        res.status(200).json({message: "Sucesso ao buscar post"});
+    } catch (err) {
+        res.status(500).json({error: "Erro ao buscar post"});
+    }
+})
+
 app.post('/posts', upload.single('image_url'), async (req, res) => {
 
     const { title, description, tags } = req.body

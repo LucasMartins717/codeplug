@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Post from "../../components/Post";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { usePostContext } from "../../context/contexto";
+import axios from "axios";
 
 const MainContainer = styled.main`
     display: flex;
@@ -33,7 +34,16 @@ const DivPost = styled.div`
 
 const DeletarPost: FC = () => {
 
-    const { posts } = usePostContext();
+    const { posts, setPosts } = usePostContext();
+
+    const handleDeletePost = async (id: number) => {
+        try {
+            await axios.delete(`http://localhost:3030/posts/${id}`);
+            setPosts(posts.filter((post) => post.id !== id))
+        } catch (err) {
+            console.error('Erro ao deletar post: ' + err)
+        }
+    }
 
     return (
         <MainContainer>
@@ -42,7 +52,7 @@ const DeletarPost: FC = () => {
 
                 {posts.map((post) => (
                     <DivPost key={post.id}>
-                        <Post id={post.id} title={post.title} image={post.image_url} icon={<FaRegTrashAlt size={49} />} />
+                        <Post id={post.id} title={post.title} image={post.image_url} handleClick={handleDeletePost} icon={<FaRegTrashAlt size={49} />} />
                     </DivPost>
                 ))}
             </SectionPosts>

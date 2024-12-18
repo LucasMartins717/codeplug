@@ -13,7 +13,7 @@ Contexto.displayName = "PostsContexto"
 
 export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
     
-    const tagsArray = [{ name: "Navagador" }, { name: "VSCode" }, { name: "Themes"}, {name: "WebTools"}]
+    const tagsArray = [{ name: "Extensions" }, { name: "Themes"}, { name: "VSCode" }, {name: "WebTools"}]
 
     const [posts, setPosts] = useState<interfaceContexto['posts']>([]);
     const [tags, setTags] = useState<interfaceContexto['tags']>(tagsArray);

@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import Cabecalho from "../../components/Cabecalho";
 import styled from "styled-components";
 import Post from "../../components/Post";
@@ -15,9 +15,10 @@ const FilterDiv = styled.div`
 
     h2{
         font-weight: bold;
+        cursor: pointer;
     }
 
-    h2:first-child{
+    .activedTag{
         color: var(--color-green);
     }
 `
@@ -30,22 +31,30 @@ const PostsDiv = styled.div`
 
 const Inicio: FC = () => {
 
+    const filterOptions = ['All', 'Extensions', 'Themes', 'VSCode', 'WebTools'];
     const { posts } = usePostContext();
+    const [filtroAtivo, setFiltroAtivo] = useState<string>('All');
+
+    const handleActiveFilter = (e: string) => {
+        setFiltroAtivo(e);
+    }
 
     return (
         <>
             <Cabecalho />
             <PostsSection>
                 <FilterDiv>
-                    <h2>All</h2>
-                    <h2>Extension</h2>
-                    <h2>Themes</h2>
-                    <h2>VSCode</h2>
-                    <h2>WebTools</h2>
+                    {filterOptions.map((tag) => (
+                        <h2
+                            key={tag}
+                            className={filtroAtivo == tag ? "activedTag" : ""}
+                            onClick={() => handleActiveFilter(tag)}
+                        >{tag}</h2>
+                    ))}
                 </FilterDiv>
                 <PostsDiv>
-                    {posts.map((post) => (
-                        <Post key={post.id} image={post.image_url} title={post.title}/>
+                    {posts.filter((post) => post.tags.includes(filtroAtivo)).map((post) => (
+                        <Post key={post.id} title={post.title} image={post.image_url} />
                     ))}
                 </PostsDiv>
             </PostsSection>

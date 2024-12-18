@@ -18,7 +18,7 @@ const AppRoutes: FC = () => {
                     <Route path="/criarPost" element={<CriarPost />} />
                     <Route path="/deletarPost" element={<DeletarPost />} />
                     <Route path="/modificarPost" element={<ModificarPost />} />
-                    <Route path="/modifyPost-/:id" element={<ModificarPost />} />
+                    <Route path="/modifyPost/:id" element={<ModificarPost />} />
                     <Route path="/copiarPost" element={<CopiarPost />} />
                 </Routes>
             </ContextoProvider>

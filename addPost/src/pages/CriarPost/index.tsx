@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react";
-import ReactQuill from "react-quill";
 import styled from "styled-components";
 import "react-quill/dist/quill.snow.css";
 import { FaFileAlt } from "react-icons/fa";
@@ -127,7 +126,7 @@ const CriarPost: FC = () => {
     const [inputDescription, setInputDescription] = useState<string>('');
     const [inputImage, setInputImage] = useState<string>('');
     const [inputFileImage, setInputFileImage] = useState<File | null>(null);
-    const [inputTag, setInputTag] = useState<string[]>([]);
+    const [inputTag, setInputTag] = useState<string[]>(['All']);
 
     const submitPost = () => {
 
@@ -203,7 +202,7 @@ const CriarPost: FC = () => {
                 </DivTags>
 
                 <DivSubmit>
-                    <button onClick={() => console.log(inputDescription, inputFileImage, inputImage, inputTag, inputTitle)}>Create Post</button>
+                    <button onClick={() => submitPost()}>Create Post</button>
                 </DivSubmit>
             </SectionPainel>
         </MainContainer>

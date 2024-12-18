@@ -33,14 +33,14 @@ app.get("/posts/:id", async (req, res) => {
     try {
         const response = await db.query("SELECT * FROM posts WHERE id = $1", [postId]);
 
-        if(!response){
-            return res.status(404).json({error: "Post não encontrado"});
+        if (!response) {
+            return res.status(404).json({ error: "Post não encontrado" });
         }
 
         res.json(response.rows[0]);
-        res.status(200).json({message: "Sucesso ao buscar post"});
+        res.status(200).json({ message: "Sucesso ao buscar post" });
     } catch (err) {
-        res.status(500).json({error: "Erro ao buscar post"});
+        res.status(500).json({ error: "Erro ao buscar post" });
     }
 })
 
@@ -68,8 +68,22 @@ app.post('/posts', upload.single('image_url'), async (req, res) => {
     }
 })
 
+app.delete('/posts/:id', async (req, res) => {
+    const postId = req.params.id;
+    try {
+        const response = await db.query('DELETE FROM posts WHERE id = $1', [postId]);
+
+        if(!response){
+            return res.status(404).json({error: "Post não encontrado"});
+        }
+
+        res.status(200).json({message: "Post deletado com sucesso"});
+    } catch (err) {
+        console.error("Erro ao buscar dados: " + err);
+        return res.status(500).json({error: "Erro ao buscar dados"});
+    }
+})
+
 app.listen(3030, () => {
     console.log("Server running: http://localhost:3030");
 })
-
-//fazer status de erro posteriormente!

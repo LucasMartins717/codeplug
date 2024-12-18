@@ -35,6 +35,27 @@ const CopiarPost: FC = () => {
 
     const { posts } = usePostContext();
 
+    const handleCopyPost = async (id: number) => {
+        try {
+            const postCopy = posts.find(post => post.id === id);
+
+            if (postCopy) {
+
+                const formatedText = `
+                id: ${postCopy.id}\n\
+                title: ${postCopy.title}\n\
+                description: ${postCopy.description}\n\
+                tags: ${postCopy.tags}\n\
+                `
+
+                await navigator.clipboard.writeText(formatedText);
+                alert('Post copiado!');
+            }
+        } catch (err) {
+            console.error("Erro ao copiar post: " + err);
+        }
+    }
+
     return (
         <MainContainer>
             <SectionPosts>
@@ -42,7 +63,7 @@ const CopiarPost: FC = () => {
 
                 {posts.map((post) => (
                     <DivPost key={post.id}>
-                        <Post id={post.id} title={post.title} image={post.image_url} icon={<FaCopy size={49} />} />
+                        <Post id={post.id} title={post.title} image={post.image_url} handleClick={handleCopyPost} icon={<FaCopy size={49} />} />
                     </DivPost>
                 ))}
             </SectionPosts>

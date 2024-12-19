@@ -4,6 +4,7 @@ import Post from "../../components/Post";
 import { FaEdit } from "react-icons/fa";
 import { usePostContext } from "../../context/contexto";
 import { useNavigate } from "react-router-dom";
+import Container from "../../components/Container";
 
 const MainContainer = styled.main`
     display: flex;
@@ -18,16 +19,6 @@ const MainContainer = styled.main`
         margin-bottom: 0.4em;
     }
 `
-const SectionPosts = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--cor-background-escuro);
-    padding: 1% 1% 0;
-    border: 5px solid #15141b;
-    border-radius: 0.5em;
-`
 const DivPost = styled.div`
     margin-bottom: 1em;
 `
@@ -38,12 +29,12 @@ const ModificarPost: FC = () => {
     const navigate = useNavigate();
 
     const handleEditPost = (postId: number) => {
-        navigate(`/modifyPost-${postId}`)
+        navigate(`/modificarPost/${postId}`)
     }
 
     return (
         <MainContainer>
-            <SectionPosts>
+            <Container>
                 <h1>Escolha um post pra modificar!</h1>
 
                 {posts.map((post) => (
@@ -51,7 +42,7 @@ const ModificarPost: FC = () => {
                         <Post id={post.id} title={post.title} image={post.image_url} handleClick={() => handleEditPost(post.id)} icon={<FaEdit size={49} />} />
                     </DivPost>
                 ))}
-            </SectionPosts>
+            </Container>
         </MainContainer>
     )
 }

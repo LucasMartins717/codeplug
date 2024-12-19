@@ -64,8 +64,8 @@ const Post: FC<interfacePosts> = ({ id, title, image, icon, handleClick }) => {
     return (
         <ContainerDiv key={id}>
             <ImageDiv>
-                <img onClick={() => handleClick(id)} src={image} alt="foto1" />
-                <div className="imageIconHover">
+                <img onClick={() => handleClick(id)} src={image} alt={`photo-post-${id}`} />
+                <div className="imageIconHover" onClick={() => handleClick(id)}>
                     {icon}
                 </div>
             </ImageDiv>

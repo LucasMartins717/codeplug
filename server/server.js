@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const db = require('./db');
 const multer = require('multer');
+const { json } = require('stream/consumers');
 
 const app = express();
 app.use(cors());
@@ -73,14 +74,40 @@ app.delete('/posts/:id', async (req, res) => {
     try {
         const response = await db.query('DELETE FROM posts WHERE id = $1', [postId]);
 
+        if (!response) {
+            return res.status(404).json({ error: "Post não encontrado" });
+        }
+
+        res.status(200).json({ message: "Post deletado com sucesso" });
+    } catch (err) {
+        console.error("Erro ao buscar dados: " + err);
+        return res.status(500).json({ error: "Erro ao buscar dados" });
+    }
+})
+
+app.put('/posts/:id', upload.single('image_url'), async (req, res) => {
+    const postId = req.params.id;
+    const {title, description, tags} = req.body;
+    const image_url = req.file ? `http://localhost:3030/uploads/images/${req.file.filename}` : req.body.image_url;
+    const parsedTags = JSON.parse(tags);
+
+    
+    try {
+        const response = await db.query(
+            'UPDATE posts SET title = $1, description = $2, image_url = $3, tags = $4 WHERE id = $5',
+            [title, description, image_url, parsedTags, postId],
+        )
+
         if(!response){
+            console.error("Post não encontrado")
             return res.status(404).json({error: "Post não encontrado"});
         }
 
-        res.status(200).json({message: "Post deletado com sucesso"});
+        res.status(200).json({message: "Post moficado com sucesso"});
+
     } catch (err) {
-        console.error("Erro ao buscar dados: " + err);
-        return res.status(500).json({error: "Erro ao buscar dados"});
+        console.error('Erro modificando post: ' + err);
+        res.status(500).json({error: "Erro modificando post"});
     }
 })
 

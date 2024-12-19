@@ -7,6 +7,7 @@ import DeletarPost from "./pages/DeletarPost";
 import CopiarPost from "./pages/CopiarPost";
 import ModificarPost from "./pages/ModificarPost";
 import { ContextoProvider } from "./context/contexto";
+import ModificarPostPage from "./pages/ModificarPostPage";
 
 const AppRoutes: FC = () => {
     return (
@@ -18,7 +19,7 @@ const AppRoutes: FC = () => {
                     <Route path="/criarPost" element={<CriarPost />} />
                     <Route path="/deletarPost" element={<DeletarPost />} />
                     <Route path="/modificarPost" element={<ModificarPost />} />
-                    <Route path="/modifyPost/:id" element={<ModificarPost />} />
+                    <Route path="/modificarPost/:id" element={<ModificarPostPage />} />
                     <Route path="/copiarPost" element={<CopiarPost />} />
                 </Routes>
             </ContextoProvider>

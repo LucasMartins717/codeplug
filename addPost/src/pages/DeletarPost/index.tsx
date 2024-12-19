@@ -4,6 +4,7 @@ import Post from "../../components/Post";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { usePostContext } from "../../context/contexto";
 import axios from "axios";
+import Container from "../../components/Container";
 
 const MainContainer = styled.main`
     display: flex;
@@ -18,16 +19,6 @@ const MainContainer = styled.main`
         margin-bottom: 0.4em;
     }
 `
-const SectionPosts = styled.section`
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    background-color: var(--cor-background-escuro);
-    padding: 1% 1% 0;
-    border: 5px solid #15141b;
-    border-radius: 0.5em;
-`
 const DivPost = styled.div`
     margin-bottom: 1em;
 `
@@ -37,17 +28,21 @@ const DeletarPost: FC = () => {
     const { posts, setPosts } = usePostContext();
 
     const handleDeletePost = async (id: number) => {
-        try {
-            await axios.delete(`http://localhost:3030/posts/${id}`);
-            setPosts(posts.filter((post) => post.id !== id))
-        } catch (err) {
-            console.error('Erro ao deletar post: ' + err)
+        const confirmDelete = window.confirm("are you sure to delete this post?")
+
+        if (confirmDelete) {
+            try {
+                await axios.delete(`http://localhost:3030/posts/${id}`);
+                setPosts(posts.filter((post) => post.id !== id))
+            } catch (err) {
+                console.error('Erro ao deletar post: ' + err)
+            }
         }
     }
 
     return (
         <MainContainer>
-            <SectionPosts>
+            <Container>
                 <h1>Escolha algum post para deletar</h1>
 
                 {posts.map((post) => (
@@ -55,7 +50,7 @@ const DeletarPost: FC = () => {
                         <Post id={post.id} title={post.title} image={post.image_url} handleClick={handleDeletePost} icon={<FaRegTrashAlt size={49} />} />
                     </DivPost>
                 ))}
-            </SectionPosts>
+            </Container>
         </MainContainer>
     )
 }

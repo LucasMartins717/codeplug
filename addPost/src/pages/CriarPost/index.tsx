@@ -5,6 +5,7 @@ import { FaFileAlt } from "react-icons/fa";
 import { usePostContext } from "../../context/contexto";
 import axios from "axios";
 import QuillText from "../../components/QuillText";
+import { useNavigate } from "react-router-dom";
 
 const MainContainer = styled.main`
     display: flex;
@@ -121,14 +122,43 @@ const DivSubmit = styled.div`
 
 const CriarPost: FC = () => {
 
-    const { tags } = usePostContext();
+    const { tags, posts, setPosts } = usePostContext();
+    const navigate = useNavigate();
     const [inputTitle, setInputTitle] = useState<string>('');
     const [inputDescription, setInputDescription] = useState<string>('');
     const [inputImage, setInputImage] = useState<string>('');
     const [inputFileImage, setInputFileImage] = useState<File | null>(null);
     const [inputTag, setInputTag] = useState<string[]>(['All']);
 
-    const submitPost = () => {
+    const postCheck = (): boolean => {
+        if(inputTitle.length < 5 || inputTitle.length > 40){
+            alert("Title must be between 5 and 40 characters");
+            return false;
+        }
+
+        if(inputDescription.length < 50){
+            alert("Description must have at least 50 characters");
+            return false
+        }
+
+        if(!inputImage && !inputFileImage){
+            alert("Provide a image URL or upload a file")
+            return false    
+        }
+
+        if(inputTag.length < 2){
+            alert("Select at least one tag");
+            return false
+        }
+
+
+
+        return true
+    }
+
+    const handleSubmitPost = () => {
+
+        if(!postCheck()) return;
 
         const formData = new FormData();
         formData.append('title', inputTitle);
@@ -141,11 +171,23 @@ const CriarPost: FC = () => {
             formData.append('image_url', inputImage);
         }
 
+        const clearForm = () => {
+            setInputTitle('');
+            setInputDescription('');
+            setInputImage('');
+            setInputFileImage(null);
+            setInputTag(['All'])
+        }
+
         const postData = async () => {
-            await axios.post('http://localhost:3030/posts', formData,
-                { headers: { 'Content-Type': 'multipart/form-data' } })
-                .then(response => console.log("response sucess: " + response.data))
-                .catch(error => console.error("response error: " + error));
+            const response = await axios.post('http://localhost:3030/posts', formData,
+                {headers: {'Content-Type': 'multipart/form-data'}}
+            )
+            setPosts([...posts, response.data]);
+            clearForm();
+            alert("Post created");
+            navigate('/admin');
+            window.location.reload();
         }
         postData();
     }
@@ -180,10 +222,10 @@ const CriarPost: FC = () => {
                 <DivImage>
                     <label>Image</label>
                     <DivImageDisplay>
-                        <input type="text" name="image_url" placeholder="image-url" value={inputImage} onChange={(e) => setInputImage(e.target.value)} />
-                        <button title="Selecionar imagem...">
+                        <input type="text" name="image_url" disabled={inputFileImage !== null ? true : false} placeholder="image-url" value={inputImage} onChange={(e) => setInputImage(e.target.value)} />
+                        <button title="Selecionar imagem..." style={inputImage.length > 0 ? {backgroundColor: '#a3a3a3'} : {backgroundColor: '#ffffff'}}>
                             <FaFileAlt size={20} className="fileIconButton" />
-                            <input type="file" name="image_file" onChange={(e) => handleFileSelect(e)} />
+                            <input type="file" name="image_file" disabled={inputImage.length > 0 ? true : false} onChange={(e) => handleFileSelect(e)} />
                         </button>
                     </DivImageDisplay>
                 </DivImage>
@@ -202,7 +244,7 @@ const CriarPost: FC = () => {
                 </DivTags>
 
                 <DivSubmit>
-                    <button onClick={() => submitPost()}>Create Post</button>
+                    <button onClick={() => handleSubmitPost()}>Create Post</button>
                 </DivSubmit>
             </SectionPainel>
         </MainContainer>

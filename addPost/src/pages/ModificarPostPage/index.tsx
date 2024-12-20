@@ -160,7 +160,7 @@ const ModificarPostPage: FC = () => {
         return true
     }
 
-    const handleSubmitPost = () => {
+    const handleSubmitPost = async () => {
 
         if (!postCheck()) return;
 
@@ -175,16 +175,18 @@ const ModificarPostPage: FC = () => {
             formData.append('image_url', inputImage);
         }
 
-        const postData = async () => {
+        try {
             const response = await axios.put(`http://localhost:3030/posts/${id}`, formData,
                 { headers: { 'Content-Type': 'multipart/form-data' } }
             )
             setPosts(posts.map(post => post.id === Number(id) ? response.data : post));
             alert("Modified Post");
             navigate('/admin');
-            window.location.reload();
+        } catch (err) {
+            console.error("Erro do servidor: " + err);
         }
-        postData();
+        window.location.reload();
+
     }
 
     const selectedTags = (name: string) => {

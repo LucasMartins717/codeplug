@@ -131,22 +131,22 @@ const CriarPost: FC = () => {
     const [inputTag, setInputTag] = useState<string[]>(['All']);
 
     const postCheck = (): boolean => {
-        if(inputTitle.length < 5 || inputTitle.length > 40){
+        if (inputTitle.length < 5 || inputTitle.length > 40) {
             alert("Title must be between 5 and 40 characters");
             return false;
         }
 
-        if(inputDescription.length < 50){
+        if (inputDescription.length < 50) {
             alert("Description must have at least 50 characters");
             return false
         }
 
-        if(!inputImage && !inputFileImage){
+        if (!inputImage && !inputFileImage) {
             alert("Provide a image URL or upload a file")
-            return false    
+            return false
         }
 
-        if(inputTag.length < 2){
+        if (inputTag.length < 2) {
             alert("Select at least one tag");
             return false
         }
@@ -156,9 +156,9 @@ const CriarPost: FC = () => {
         return true
     }
 
-    const handleSubmitPost = () => {
+    const handleSubmitPost = async () => {
 
-        if(!postCheck()) return;
+        if (!postCheck()) return;
 
         const formData = new FormData();
         formData.append('title', inputTitle);
@@ -176,20 +176,21 @@ const CriarPost: FC = () => {
             setInputDescription('');
             setInputImage('');
             setInputFileImage(null);
-            setInputTag(['All'])
+            setInputTag(['All']);
         }
 
-        const postData = async () => {
+        try {
             const response = await axios.post('http://localhost:3030/posts', formData,
-                {headers: {'Content-Type': 'multipart/form-data'}}
+                { headers: { 'Content-Type': 'multipart/form-data' } }
             )
             setPosts([...posts, response.data]);
             clearForm();
             alert("Post created");
             navigate('/admin');
             window.location.reload();
+        } catch (err) {
+            console.error("Erro no servidor: " + err);
         }
-        postData();
     }
 
     const selectedTags = (name: string) => {
@@ -223,7 +224,7 @@ const CriarPost: FC = () => {
                     <label>Image</label>
                     <DivImageDisplay>
                         <input type="text" name="image_url" disabled={inputFileImage !== null ? true : false} placeholder="image-url" value={inputImage} onChange={(e) => setInputImage(e.target.value)} />
-                        <button title="Selecionar imagem..." style={inputImage.length > 0 ? {backgroundColor: '#a3a3a3'} : {backgroundColor: '#ffffff'}}>
+                        <button title="Selecionar imagem..." style={inputImage.length > 0 ? { backgroundColor: '#a3a3a3' } : { backgroundColor: '#ffffff' }}>
                             <FaFileAlt size={20} className="fileIconButton" />
                             <input type="file" name="image_file" disabled={inputImage.length > 0 ? true : false} onChange={(e) => handleFileSelect(e)} />
                         </button>

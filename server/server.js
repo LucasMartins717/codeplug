@@ -3,6 +3,7 @@ const cors = require('cors');
 const db = require('./db');
 const multer = require('multer');
 const { json } = require('stream/consumers');
+const MESSAGES = require('./constants/messages');
 
 const app = express();
 app.use(cors());
@@ -22,12 +23,12 @@ const upload = multer({ storage: storage })
 app.get("/posts", async (req, res) => {
     try {
         const response = await db.query("SELECT * FROM posts");
-        res.json(response.rows);
+        return res.json(response.rows);
     } catch (err) {
-        console.error("Erro ao buscar dados: " + err);
-        res.status(500).json({ error: "Erro ao buscar dados" })
+        console.error(MESSAGES.ERROR.SERVER_ERROR + err);
+        return res.status(500).json({ error: MESSAGES.ERROR.SERVER_ERROR })
     }
-})
+});
 
 app.get("/posts/:id", async (req, res) => {
     const postId = req.params.id;
@@ -35,15 +36,15 @@ app.get("/posts/:id", async (req, res) => {
         const response = await db.query("SELECT * FROM posts WHERE id = $1", [postId]);
 
         if (!response) {
-            return res.status(404).json({ error: "Post não encontrado" });
+            return res.status(404).json({ error: MESSAGES.ERROR.POST_NOT_FOUND });
         }
 
-        res.json(response.rows[0]);
-        res.status(200).json({ message: "Sucesso ao buscar post" });
+        return res.json(response.rows[0]);
     } catch (err) {
-        res.status(500).json({ error: "Erro ao buscar post" });
+        console.err(MESSAGES.ERROR.SERVER_ERROR + err)
+        return res.status(500).json({ error: MESSAGES.ERROR.SERVER_ERROR });
     }
-})
+});
 
 app.post('/posts', upload.single('image_url'), async (req, res) => {
 
@@ -51,23 +52,32 @@ app.post('/posts', upload.single('image_url'), async (req, res) => {
     const image_url = req.file ? `http://localhost:3030/uploads/images/${req.file.filename}` : req.body.image_url;
     const parsedTags = JSON.parse(tags);
 
+    if(!title || !description || !tags || !image_url){
+        return res.status(400).json({error: "Title, description, image, and tags are required!"})
+    }
+
+    if(title.lenght > 40){
+        return res.status(400).json({ error: "Title must be less than 40 characters" });
+    }
+    if (!Array.isArray(parsedTags)) {
+        return res.status(400).json({ error: "Tags must be an array" });
+    }
+    
     try {
         const response = await db.query('INSERT INTO posts(title, description, image_url, tags) VALUES ($1, $2, $3, $4)', [title, description, image_url, parsedTags])
 
         if (!response) {
-            res.status(500).json({ error: "Falha ao criar Post" });
-            throw new Error('Erro ao publica Post');
+            console.error(MESSAGES.ERROR.POST_NOT_FOUND);
+            return res.status(400).json({ error: MESSAGES.ERROR.POST_NOT_FOUND });
         }
 
-        res.status(201).json({
-            message: "Post criado com sucesso!",
-        })
+        return res.status(201).json({ message: MESSAGES.SUCESS.POST_CREATED })
 
     } catch (err) {
-        res.status(500).json({ error: "Sem conexão com o servidor" });
-        throw new Error("Falha ao conectar com o servidor: " + err);
+        console.error(MESSAGES.ERROR.SERVER_ERROR + err);
+        return res.status(500).json({ error: MESSAGES.ERROR.SERVER_ERROR });
     }
-})
+});
 
 app.delete('/posts/:id', async (req, res) => {
     const postId = req.params.id;
@@ -75,42 +85,51 @@ app.delete('/posts/:id', async (req, res) => {
         const response = await db.query('DELETE FROM posts WHERE id = $1', [postId]);
 
         if (!response) {
-            return res.status(404).json({ error: "Post não encontrado" });
+            return res.status(404).json({ error: MESSAGES.ERROR.POST_NOT_FOUND });
         }
 
-        res.status(200).json({ message: "Post deletado com sucesso" });
+        return res.status(200).json({ message: MESSAGES.SUCESS.POST_DELETED });
     } catch (err) {
-        console.error("Erro ao buscar dados: " + err);
-        return res.status(500).json({ error: "Erro ao buscar dados" });
+        console.error(MESSAGES.ERROR.SERVER_ERROR + err);
+        return res.status(500).json({ error: MESSAGES.ERROR.SERVER_ERROR });
     }
-})
+});
 
 app.put('/posts/:id', upload.single('image_url'), async (req, res) => {
     const postId = req.params.id;
-    const {title, description, tags} = req.body;
+    const { title, description, tags } = req.body;
     const image_url = req.file ? `http://localhost:3030/uploads/images/${req.file.filename}` : req.body.image_url;
     const parsedTags = JSON.parse(tags);
 
-    
+    if (!title || !description || !tags || !image_url) {
+        return res.status(400).json({ error: "Title, description, images and tags are required" });
+    }
+    if (title.length > 40) {
+        return res.status(400).json({ error: "Title must be less than 40 characters" });
+    }
+    if (!Array.isArray(parsedTags)) {
+        return res.status(400).json({ error: "Tags must be an array" });
+    }
+
     try {
         const response = await db.query(
             'UPDATE posts SET title = $1, description = $2, image_url = $3, tags = $4 WHERE id = $5',
             [title, description, image_url, parsedTags, postId],
         )
 
-        if(!response){
-            console.error("Post não encontrado")
-            return res.status(404).json({error: "Post não encontrado"});
+        if (!response) {
+            console.error(MESSAGES.ERROR.POST_NOT_FOUND)
+            return res.status(404).json({ error: MESSAGES.ERROR.POST_NOT_FOUND });
         }
 
-        res.status(200).json({message: "Post moficado com sucesso"});
+        return res.status(200).json({ message: MESSAGES.SUCESS.POST_UPDATED });
 
     } catch (err) {
-        console.error('Erro modificando post: ' + err);
-        res.status(500).json({error: "Erro modificando post"});
+        console.error(MESSAGES.ERROR.SERVER_ERROR + err);
+        return res.status(500).json({ error: MESSAGES.ERROR.SERVER_ERROR });
     }
-})
+});
 
 app.listen(3030, () => {
     console.log("Server running: http://localhost:3030");
-})
+});

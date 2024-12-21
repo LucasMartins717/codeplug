@@ -59,6 +59,7 @@ const DivImageDisplay = styled.div`
     justify-content: space-between;
     
     button{
+        position: relative;
         width: 2.2em;
         height: 2.2em;
         border: 1px solid black;
@@ -70,8 +71,11 @@ const DivImageDisplay = styled.div`
     }
 
     input[type="file"]{
-        width: 100%;
-        height: 100%;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 1.6em;
+        height: 1.6em;
         opacity: 0;
     }
 

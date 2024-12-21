@@ -186,7 +186,6 @@ const ModificarPostPage: FC = () => {
             console.error("Erro do servidor: " + err);
         }
         window.location.reload();
-
     }
 
     const selectedTags = (name: string) => {

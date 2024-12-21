@@ -19,7 +19,7 @@ export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const [tags, setTags] = useState<interfaceContexto['tags']>(tagsArray);
 
 
-    //PEGAR POSTS
+    //GUARDA OS POSTS EM /posts
     useEffect(() => {
         const fetchPosts = async () => {
             try {

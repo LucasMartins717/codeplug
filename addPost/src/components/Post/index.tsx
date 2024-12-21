@@ -27,6 +27,7 @@ const ContainerDiv = styled.div`
 `
 const ImageDiv = styled.div`
     position: relative;
+    cursor: pointer;
 
     .imageIconHover{
         position: absolute;

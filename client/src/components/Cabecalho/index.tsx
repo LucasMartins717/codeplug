@@ -10,6 +10,11 @@ const HeaderContainer = styled.header`
 
     img{
         width: 5em;
+        transition: all 0.2s ease-in;
+    }
+
+    img:hover{
+        scale: 1.1;
     }
 
     button{
@@ -31,6 +36,7 @@ const DivContainer = styled.div`
     flex-direction: column;
     align-items: center;
     margin-top: 4em;
+    user-select: none;
 
     p{
         font-size: 1.3em;

@@ -16,10 +16,16 @@ const FilterDiv = styled.div`
     h2{
         font-weight: bold;
         cursor: pointer;
+        user-select: none;
+        transition: all 0.1s ease-in;
     }
 
     .activedTag{
         color: var(--color-green);
+    }
+
+    h2:hover{
+        color: #277c18;
     }
 `
 const PostsDiv = styled.div`

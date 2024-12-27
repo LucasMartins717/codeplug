@@ -6,6 +6,7 @@ const MainContainer = styled.main`
     justify-content: center;
     align-items: center;
     height: 100vh;
+    color: var(--cor-background-claro);
 `
 const PainelContainer = styled.section`
     display: flex;
@@ -13,7 +14,7 @@ const PainelContainer = styled.section`
     justify-content: center;
     width: 30em;
     height: 15em;
-    background-color: #d3d3d3;
+    background-color: var(--cor-background-escuro);
     border: 1px solid black;
     border-radius: 1em;
     padding: 1em;
@@ -27,13 +28,17 @@ const PainelContainer = styled.section`
         background-color: #e9e9e9;
         border-radius: 0.3em;
         border: 1px solid black;
+        padding-left: 0.2em;
     }
 
     button{
         margin-top: 1em;
         font-size: 1.7em;
-        border-radius: 0.4em;
+        border-radius: 0.3em;
         border: 1px solid black;
+        background-color: var(--cor-background-claro);
+        font-size: 1.3em;
+        height: 1.8em;
     }
 `
 

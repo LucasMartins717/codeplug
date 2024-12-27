@@ -37,6 +37,10 @@ const ImageDiv = styled.div`
         display: none;
     }
 
+    img{
+        transition: all 0.4s ease-in-out;
+    }
+
     &:hover img{
         opacity: 70%;
     }

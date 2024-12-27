@@ -57,7 +57,7 @@ const DivImage = styled.div`
 const DivImageDisplay = styled.div`
     display: flex;
     justify-content: space-between;
-    
+
     button{
         position: relative;
         width: 2.2em;
@@ -100,11 +100,18 @@ const DivTagsButtons = styled.div`
         padding: 0.4em 0.7em;
         background: linear-gradient(135deg, #9796b8, #74738d);
         cursor: pointer;
+        transition: all 0.2s ease-in;
     }
 
+    button:hover{
+        scale: 1.05;
+        transition: all 0.2s ease-in;
+    }
+    
     .tagSelected{
         background: linear-gradient(135deg, #403c6e, #363468);
         color: var(--cor-background-claro);
+        scale: 1.05;
     }
 `
 const DivSubmit = styled.div`

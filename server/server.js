@@ -4,6 +4,8 @@ const db = require('./db');
 const multer = require('multer');
 const { json } = require('stream/consumers');
 const MESSAGES = require('./constants/messages');
+const user = require('./constants/user');
+const jwt = require('jsonwebtoken');
 
 const app = express();
 app.use(cors());
@@ -52,17 +54,17 @@ app.post('/posts', upload.single('image_url'), async (req, res) => {
     const image_url = req.file ? `http://localhost:3030/uploads/images/${req.file.filename}` : req.body.image_url;
     const parsedTags = JSON.parse(tags);
 
-    if(!title || !description || !tags || !image_url){
-        return res.status(400).json({error: "Title, description, image, and tags are required!"})
+    if (!title || !description || !tags || !image_url) {
+        return res.status(400).json({ error: "Title, description, image, and tags are required!" })
     }
 
-    if(title.lenght > 40){
+    if (title.lenght > 40) {
         return res.status(400).json({ error: "Title must be less than 40 characters" });
     }
     if (!Array.isArray(parsedTags)) {
         return res.status(400).json({ error: "Tags must be an array" });
     }
-    
+
     try {
         const response = await db.query('INSERT INTO posts(title, description, image_url, tags) VALUES ($1, $2, $3, $4)', [title, description, image_url, parsedTags])
 
@@ -129,6 +131,23 @@ app.put('/posts/:id', upload.single('image_url'), async (req, res) => {
         return res.status(500).json({ error: MESSAGES.ERROR.SERVER_ERROR });
     }
 });
+
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+
+    if (username !== user.username) {
+        return res.status(401).json({ message: "Invalid username!" })
+    }
+
+
+    if (password !== user.password) {
+        return res.status(401).json({ message: "Invalid password!" })
+    }
+
+    const token = jwt.sign({ username }, process.env.SECRET_KEY, { expiresIn: "1h" });
+
+    res.json({ token });
+})
 
 app.listen(3030, () => {
     console.log("Server running: http://localhost:3030");

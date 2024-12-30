@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { GrShare } from "react-icons/gr";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const ContainerDiv = styled.div`
@@ -7,6 +8,11 @@ const ContainerDiv = styled.div`
     flex-direction: column;
     margin-bottom: 0.5em;
     
+    .postLink{
+        text-decoration: none;
+        color: black;
+    }
+
     img{
         min-width: 37em;
         max-width: 37em;
@@ -31,14 +37,16 @@ const InfosDiv = styled.div`
 `
 
 
-const Post: FC<{title: string, image: string }> = ({title, image}) => {
+const Post: FC<{ title: string, image: string, link: string }> = ({ title, image, link }) => {
     return (
         <ContainerDiv>
-            <img src={image} alt="foto1" />
-            <InfosDiv>
-                <h4>{title}</h4>
-                <GrShare size={18} className="infoIcon"/>
-            </InfosDiv>
+            <Link to={link} className="postLink">
+                <img src={image} alt="foto1" />
+                <InfosDiv>
+                    <h4>{title}</h4>
+                    <GrShare size={18} className="infoIcon" />
+                </InfosDiv>
+            </Link>
         </ContainerDiv>
     )
 }

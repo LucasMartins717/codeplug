@@ -6,6 +6,9 @@ interface interfaceContexto {
     setPosts: (posts: { id: number, title: string, description: string, image_url: string, created_at: string, tags: string[] }[]) => void;
     tags: { name: string }[];
     setTags: (tags: { name: string }[]) => void;
+    token: string | null,
+    setToken: (token: string | null) => void;
+    isLogged: boolean;
 }
 
 export const Contexto = createContext<interfaceContexto | null>(null)
@@ -17,6 +20,8 @@ export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     const [posts, setPosts] = useState<interfaceContexto['posts']>([]);
     const [tags, setTags] = useState<interfaceContexto['tags']>(tagsArray);
+    const [token, setToken] = useState<interfaceContexto['token']>('token');
+    const isLogged: boolean = Boolean(token);
 
 
     //GUARDA OS POSTS EM /posts
@@ -44,6 +49,9 @@ export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
             setPosts,
             tags,
             setTags,
+            token,
+            setToken,
+            isLogged,
         }}>
             {children}
         </Contexto.Provider>

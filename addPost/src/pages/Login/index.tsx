@@ -1,5 +1,8 @@
-import { FC } from "react"
+import axios from "axios"
+import { FC, useState } from "react"
+import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import { usePostContext } from "../../context/contexto"
 
 const MainContainer = styled.main`
     display: flex;
@@ -43,14 +46,41 @@ const PainelContainer = styled.section`
 `
 
 const Login: FC = () => {
+
+    const {setToken} = usePostContext();
+    const [inputUsername, setInputUsername] = useState('');
+    const [inputPassword, setInputPassword] = useState('');
+    const navigate = useNavigate();
+
+    const handleLogin = async (e: React.FormEvent) => {
+        e.preventDefault();
+        
+        try {
+            const response = await axios.post("http://localhost:3030/login", {
+                username: inputUsername,
+                password: inputPassword
+            })
+
+            if (response.data.token) {
+                localStorage.setItem("token", response.data.token);
+                setToken(response.data.token);
+                navigate('/admin');
+            }
+        } catch (err) {
+            alert("password or username incorrect!");
+        }
+    }
+
     return (
         <MainContainer>
             <PainelContainer>
-                <label htmlFor="user">User</label>
-                <input type="text" name="user" />
-                <label htmlFor="password">Password</label>
-                <input type="password" name="password" />
-                <button>Login</button>
+                <form onSubmit={handleLogin}>
+                    <label htmlFor="user">User</label>
+                    <input type="text" name="user" value={inputUsername} onChange={(e) => setInputUsername(e.target.value)} required />
+                    <label htmlFor="password">Password</label>
+                    <input type="password" name="password" value={inputPassword} onChange={(e) => setInputPassword(e.target.value)} required />
+                    <button type="submit">Login</button>
+                </form>
             </PainelContainer>
         </MainContainer>
     )

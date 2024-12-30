@@ -60,7 +60,7 @@ const Inicio: FC = () => {
                 </FilterDiv>
                 <PostsDiv>
                     {posts.filter((post) => post.tags.includes(filtroAtivo)).map((post) => (
-                        <Post key={post.id} title={post.title} image={post.image_url} />
+                        <Post key={post.id} title={post.title} image={post.image_url} link={`/post/${post.id}`} />
                     ))}
                 </PostsDiv>
             </PostsSection>

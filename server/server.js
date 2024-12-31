@@ -4,7 +4,7 @@ const db = require('./db');
 const multer = require('multer');
 const { json } = require('stream/consumers');
 const MESSAGES = require('./constants/messages');
-const user = require('./constants/user');
+const users = require('./constants/users');
 const jwt = require('jsonwebtoken');
 
 const app = express();
@@ -135,12 +135,12 @@ app.put('/posts/:id', upload.single('image_url'), async (req, res) => {
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
-    if (username !== user.username) {
+    if (username !== users.username) {
         return res.status(401).json({ message: "Invalid username!" })
     }
 
 
-    if (password !== user.password) {
+    if (password !== users.password) {
         return res.status(401).json({ message: "Invalid password!" })
     }
 

@@ -20,7 +20,7 @@ export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     const [posts, setPosts] = useState<interfaceContexto['posts']>([]);
     const [tags, setTags] = useState<interfaceContexto['tags']>(tagsArray);
-    const [token, setToken] = useState<interfaceContexto['token']>('token');
+    const [token, setToken] = useState<interfaceContexto['token']>(localStorage.getItem('token'));
     const isLogged: boolean = Boolean(token);
 
 

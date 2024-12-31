@@ -8,6 +8,7 @@ import CopiarPost from "./pages/CopiarPost";
 import ModificarPost from "./pages/ModificarPost";
 import { ContextoProvider } from "./context/contexto";
 import ModificarPostPage from "./pages/ModificarPostPage";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const AppRoutes: FC = () => {
     return (
@@ -15,12 +16,12 @@ const AppRoutes: FC = () => {
             <ContextoProvider>
                 <Routes>
                     <Route path="/" element={<Login />} />
-                    <Route path="/admin" element={<Admin />} />
-                    <Route path="/criarPost" element={<CriarPost />} />
-                    <Route path="/deletarPost" element={<DeletarPost />} />
-                    <Route path="/modificarPost" element={<ModificarPost />} />
-                    <Route path="/modificarPost/:id" element={<ModificarPostPage />} />
-                    <Route path="/copiarPost" element={<CopiarPost />} />
+                    <Route path="/admin" element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+                    <Route path="/criarPost" element={<ProtectedRoute><CriarPost /></ProtectedRoute>} />
+                    <Route path="/deletarPost" element={<ProtectedRoute><DeletarPost /></ProtectedRoute>} />
+                    <Route path="/modificarPost" element={<ProtectedRoute><ModificarPost /></ProtectedRoute>} />
+                    <Route path="/modificarPost/:id" element={<ProtectedRoute><ModificarPostPage /></ProtectedRoute>} />
+                    <Route path="/copiarPost" element={<ProtectedRoute><CopiarPost /></ProtectedRoute>} />
                 </Routes>
             </ContextoProvider>
         </BrowserRouter>

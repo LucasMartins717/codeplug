@@ -1,5 +1,5 @@
 import axios from "axios"
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { usePostContext } from "../../context/contexto"
@@ -47,7 +47,7 @@ const PainelContainer = styled.section`
 
 const Login: FC = () => {
 
-    const {setToken} = usePostContext();
+    const {setToken, isLogged} = usePostContext();
     const [inputUsername, setInputUsername] = useState('');
     const [inputPassword, setInputPassword] = useState('');
     const navigate = useNavigate();
@@ -71,14 +71,20 @@ const Login: FC = () => {
         }
     }
 
+    useEffect(() => {
+        if(isLogged){
+            navigate('/admin');
+        }
+    }, [isLogged, navigate]);
+
     return (
         <MainContainer>
             <PainelContainer>
                 <form onSubmit={handleLogin}>
                     <label htmlFor="user">User</label>
-                    <input type="text" name="user" value={inputUsername} onChange={(e) => setInputUsername(e.target.value)} required />
+                    <input type="text" name="user" id="user" value={inputUsername} onChange={(e) => setInputUsername(e.target.value)} required />
                     <label htmlFor="password">Password</label>
-                    <input type="password" name="password" value={inputPassword} onChange={(e) => setInputPassword(e.target.value)} required />
+                    <input type="password" name="password" id="password" value={inputPassword} onChange={(e) => setInputPassword(e.target.value)} required />
                     <button type="submit">Login</button>
                 </form>
             </PainelContainer>

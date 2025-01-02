@@ -5,6 +5,8 @@ import { data } from "react-router-dom";
 interface interfaceContexto {
     posts: { id: number, title: string, description: string, image_url: string, created_at: string, tags: string[] }[];
     setPosts: (posts: { id: number, title: string, description: string, image_url: string, created_at: string, tags: string[] }[]) => void;
+    currentTheme: 'light' | 'dark';
+    setCurrentTheme: (currentTheme: 'light' | 'dark') => void;
 }
 
 export const Contexto = createContext<interfaceContexto | null>(null);
@@ -13,6 +15,7 @@ Contexto.displayName = "Posts-Context";
 export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     const [posts, setPosts] = useState<interfaceContexto['posts']>([]);
+    const [currentTheme, setCurrentTheme] = useState<interfaceContexto['currentTheme']>('light');
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -39,6 +42,8 @@ export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
         <Contexto.Provider value={{
             posts,
             setPosts,
+            currentTheme,
+            setCurrentTheme
         }}>
             {children}
         </Contexto.Provider>

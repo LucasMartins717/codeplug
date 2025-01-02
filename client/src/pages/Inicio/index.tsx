@@ -21,11 +21,11 @@ const FilterDiv = styled.div`
     }
 
     .activedTag{
-        color: var(--color-green);
+        color: var(--font-active-color);
     }
 
     h2:hover{
-        color: #277c18;
+        color: var(--font-hover-color);
     }
 `
 const PostsDiv = styled.div`

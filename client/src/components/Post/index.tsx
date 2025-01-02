@@ -25,6 +25,7 @@ const ContainerDiv = styled.div`
 const InfosDiv = styled.div`
     display: flex;
     justify-content: space-between;
+    color: var(--font-color);
 
     h4{
         font-size: 1.7em;

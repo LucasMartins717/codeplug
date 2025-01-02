@@ -3,6 +3,7 @@ import { IoMoon } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import "../../global.css";
+import { usePostContext } from "../../context/contexto";
 
 const HeaderContainer = styled.header`
     display: flex;
@@ -51,11 +52,23 @@ const DivContainerTitulo = styled.div`
     }
 
     h1:last-child{
-        color: var(--color-green);
+        color: var(--color-title-green);
     }
 `
 
 const Cabecalho: FC = () => {
+
+    const changeTheme = () => {
+        const root = document.documentElement;
+        const currentTheme = root.getAttribute('data-theme');
+
+        if(currentTheme === 'dark'){
+            root.removeAttribute('data-theme');
+        }else{
+            root.setAttribute('data-theme', 'dark')
+        }
+    }
+
     return (
         <HeaderContainer>
             <Link to={'/'}><img src="/images/logo.png" alt="CodePlug logo" /></Link>
@@ -67,7 +80,7 @@ const Cabecalho: FC = () => {
                 <p>Alguma frase que combine legal.</p>
             </DivContainer>
 
-            <button><IoMoon size={30} /></button>
+            <button onClick={() => changeTheme()}><IoMoon size={30} color={"var(--icon-color)"} /></button>
         </HeaderContainer>
     )
 }

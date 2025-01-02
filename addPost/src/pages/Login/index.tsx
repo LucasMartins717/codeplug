@@ -22,6 +22,11 @@ const PainelContainer = styled.section`
     border-radius: 1em;
     padding: 1em;
     
+    form{
+        display: flex;
+        flex-direction: column;
+    }
+
     label{
         font-size: 2em;
     }
@@ -47,32 +52,32 @@ const PainelContainer = styled.section`
 
 const Login: FC = () => {
 
-    const {setToken, isLogged} = usePostContext();
+    const { setToken, isLogged } = usePostContext();
     const [inputUsername, setInputUsername] = useState('');
     const [inputPassword, setInputPassword] = useState('');
     const navigate = useNavigate();
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
-        
         try {
-            const response = await axios.post("http://localhost:3030/login", {
+            const response = await axios.post('http://localhost:3030/login', {
                 username: inputUsername,
                 password: inputPassword
-            })
+            });
 
-            if (response.data.token) {
-                localStorage.setItem("token", response.data.token);
+            if(response.data.token){
+                localStorage.setItem('token', response.data.token)
                 setToken(response.data.token);
                 navigate('/admin');
             }
+
         } catch (err) {
-            alert("password or username incorrect!");
+            alert('Username or Password incorrect!');
         }
     }
 
     useEffect(() => {
-        if(isLogged){
+        if (isLogged) {
             navigate('/admin');
         }
     }, [isLogged, navigate]);

@@ -1,10 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=DynaPuff:wght@400..700&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
-:root{
+
+:root {
+
+    /*GLOBAL*/
     --font-title: "DynaPuff", system-ui;
     --font-global: "Nunito Sans", sans-serif;
-    --color-green: #5fff5f;
+    --color-title-green: #5fff5f;
+
+    /*WHITE THEME*/
+    --background-color: #ffffff;
+    --font-color: #000000;
+    --font-active-color: #5fff5f;
+    --font-hover-color: #277c18;
+    --icon-color: #000000;
 }
 
-body{
+[data-theme="dark"] {
+    
+    /*WHITE THEME*/
+    --background-color: #111111;
+    --font-color: #e2e2e2;
+    --font-active-color: #5fff5f;
+    --font-hover-color: #277c18;
+    --icon-color: #ffffff;
+}
+
+body {
+    background-color: var(--background-color);
+    color: var(--font-color);
     font-family: var(--font-global);
 }

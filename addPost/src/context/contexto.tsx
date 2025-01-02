@@ -6,9 +6,9 @@ interface interfaceContexto {
     setPosts: (posts: { id: number, title: string, description: string, image_url: string, created_at: string, tags: string[] }[]) => void;
     tags: { name: string }[];
     setTags: (tags: { name: string }[]) => void;
-    token: string | null,
+    token: string | null;
     setToken: (token: string | null) => void;
-    isLogged: boolean;
+    isLogged: boolean
 }
 
 export const Contexto = createContext<interfaceContexto | null>(null)

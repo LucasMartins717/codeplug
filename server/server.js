@@ -135,18 +135,22 @@ app.put('/posts/:id', upload.single('image_url'), async (req, res) => {
 app.post('/login', async (req, res) => {
     const { username, password } = req.body;
 
-    if (username !== users.username) {
-        return res.status(401).json({ message: "Invalid username!" })
+    if (username !== users.username && password !== users.password) {
+        return res.status(401).json({ message: 'Incorrect Username and Password' });
     }
 
+    if (username !== users.username) {
+        return res.status(401).json({ message: 'Incorrect Username' });
+    }
 
     if (password !== users.password) {
-        return res.status(401).json({ message: "Invalid password!" })
+        return res.status(401).json({ message: 'Incorrect Password' });
     }
 
-    const token = jwt.sign({ username }, process.env.SECRET_KEY, { expiresIn: "1h" });
+    const token = jwt.sign({ username }, process.env.SECRET_KEY, { expiresIn: '1h' });
 
-    res.json({ token });
+    return res.send({ token });
+
 })
 
 app.listen(3030, () => {

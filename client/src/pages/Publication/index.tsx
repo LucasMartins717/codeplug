@@ -6,10 +6,17 @@ import DOMPurify from "dompurify"
 
 const SectionPost = styled.section`
     display: flex;
+    flex-direction: column;
+    padding: 0 30em;
 `
 const DivPostImages = styled.div`
     display: flex;
     flex-direction: column;
+
+    img{
+        height: 22em;
+    }
+
 `
 const DivPostDescription = styled.div`
     display: flex;
@@ -26,12 +33,11 @@ const Publication: FC = () => {
     return (
         <SectionPost>
             <DivPostImages>
+                <h1>{currentPost?.title}</h1>
                 <img src={currentPost?.image_url} alt={'Foto post ' + currentPost?.title} />
-                <img src={currentPost?.image_url} alt={'Gif post ' + currentPost?.title} />
             </DivPostImages>
 
             <DivPostDescription>
-                <h1>{currentPost?.title}</h1>
                 <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(currentPost?.description || "") }}></div>
             </DivPostDescription>
         </SectionPost>

@@ -2,7 +2,6 @@ import { FC } from "react";
 import { IoMoon } from "react-icons/io5";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import "../../global.css";
 import { usePostContext } from "../../context/contexto";
 
 const HeaderContainer = styled.header`
@@ -11,10 +10,24 @@ const HeaderContainer = styled.header`
 
     img{
         width: 5em;
+        animation: pulse 0.7s infinite;
         transition: all 0.2s ease-in;
     }
 
+    @keyframes pulse {
+        0%{
+            transform: scale(1);
+        }
+        50%{
+            transform: scale(1.02);
+        }
+        100%{
+            transform: scale(1);
+        }
+    }
+
     img:hover{
+        animation: none;
         scale: 1.1;
     }
 
@@ -32,48 +45,17 @@ const HeaderContainer = styled.header`
         scale: 1.2;
     }
 `
-const DivContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 4em;
-    user-select: none;
 
-    p{
-        font-size: 1.3em;
-    }
-`
-const DivContainerTitulo = styled.div`
-    display: flex;
+const CabecalhoSecundario: FC = () => {
 
-    h1{
-        font-family: var(--font-title);
-        font-size: 4em;
-    }
-
-    h1:last-child{
-        color: var(--color-title-green);
-    }
-`
-
-const Cabecalho: FC = () => {
-
-    const {changeTheme} = usePostContext();
+    const { changeTheme } = usePostContext();
 
     return (
         <HeaderContainer>
             <Link to={'/'}><img src="/images/logo.png" alt="CodePlug logo" /></Link>
-
-            <DivContainer>
-                <DivContainerTitulo>
-                    <h1>Code</h1><h1>Plug</h1>
-                </DivContainerTitulo>
-                <p>Alguma frase que combine legal.</p>
-            </DivContainer>
-
             <button onClick={() => changeTheme()}><IoMoon size={30} color={"var(--icon-color)"} /></button>
         </HeaderContainer>
     )
 }
 
-export default Cabecalho;
+export default CabecalhoSecundario;

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Inicio from "./pages/Inicio";
 import Container from "./components/Container";
 import { ContextoProvider } from "./context/contexto";
-import Publication from "./pages/Publication";
+import Publicacao from "./pages/Publicacao";
 
 const AppRoutes: FC = () => {
     return (
@@ -12,7 +12,7 @@ const AppRoutes: FC = () => {
                 <Container>
                     <Routes>
                         <Route path="/" element={<Inicio />} />
-                        <Route path="/post/:postId" element={<Publication />} />
+                        <Route path="/post/:postId" element={<Publicacao />} />
                     </Routes>
                 </Container>
             </ContextoProvider>

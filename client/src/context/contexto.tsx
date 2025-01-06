@@ -3,8 +3,8 @@ import { createContext, FC, ReactNode, useContext, useEffect, useState } from "r
 import { data } from "react-router-dom";
 
 interface interfaceContexto {
-    posts: { id: number, title: string, description: string, image_url: string, created_at: string, tags: string[] }[];
-    setPosts: (posts: { id: number, title: string, description: string, image_url: string, created_at: string, tags: string[] }[]) => void;
+    posts: { id: number, title: string, description: string, image_url: string, created_at: string, tags: string[], download_link: string, source_link: string }[];
+    setPosts: (posts: { id: number, title: string, description: string, image_url: string, created_at: string, tags: string[], download_link: string, source_link: string }[]) => void;
 
     changeTheme: () => void;
 }

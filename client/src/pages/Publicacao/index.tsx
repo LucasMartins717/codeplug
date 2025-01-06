@@ -35,6 +35,25 @@ const DivPostDescription = styled.div`
     flex-direction: column;
     margin-top: 1em;
 `
+const DivButtonDownload = styled.div`
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0.6em;
+
+    button{
+        width: 48%;
+        font-size: 1.4em;
+        padding: 0.2em 0;
+        border: 1px solid black;
+        border-radius: 0.2em;
+        background: linear-gradient(130deg, var(--post-button-first-linear-color), var(--post-button-second-linear-color));
+        
+        a{
+            color: black;
+            text-decoration: none;
+        }
+    }
+`
 
 
 const Publication: FC = () => {
@@ -57,6 +76,11 @@ const Publication: FC = () => {
                     <DivPostDescription>
                         <div dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(currentPost?.description || "") }}></div>
                     </DivPostDescription>
+
+                    <DivButtonDownload>
+                        <button><a href={currentPost?.download_link}>Download</a></button>
+                        <button><a href={currentPost?.source_link}>Source Code</a></button>
+                    </DivButtonDownload>
                 </DivPost>
             </SectionPost>
         </>

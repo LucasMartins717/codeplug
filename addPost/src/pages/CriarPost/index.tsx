@@ -19,7 +19,7 @@ const SectionPainel = styled.section`
     flex-direction: column;
     align-items: start;
     width: 40em;
-    height: 35.7em;
+    height: 44em;
     padding: 0.6em 1em;
     background-color: var(--cor-background-escuro);
     border-radius: 0.4em;
@@ -88,6 +88,17 @@ const DivTags = styled.div`
     flex-direction: column;
     width: 100%;
 `
+const DivDownloadLink = styled.div`
+    margin-top: 1em;
+    
+    label{
+        font-size: 1.5em;
+    }
+
+    input{
+        margin-bottom: 0.1em;
+    }
+`
 const DivTagsButtons = styled.div`
     display: flex;
     justify-content: space-between;
@@ -140,6 +151,8 @@ const CriarPost: FC = () => {
     const [inputImage, setInputImage] = useState<string>('');
     const [inputFileImage, setInputFileImage] = useState<File | null>(null);
     const [inputTag, setInputTag] = useState<string[]>(['All']);
+    const [inputDownload, setInputDownload] = useState<string>('');
+    const [inputSource, setInputSource] = useState<string>('');
 
     const postCheck = (): boolean => {
         if (inputTitle.length < 5 || inputTitle.length > 40) {
@@ -162,7 +175,13 @@ const CriarPost: FC = () => {
             return false
         }
 
+        if(!inputDownload){
+            alert("Provide a download link!")
+        }
 
+        if(!inputSource){
+            alert("Provide a source link!")
+        }
 
         return true
     }
@@ -175,6 +194,8 @@ const CriarPost: FC = () => {
         formData.append('title', inputTitle);
         formData.append('description', inputDescription);
         formData.append('tags', JSON.stringify(inputTag));
+        formData.append('downloadLink', inputDownload);
+        formData.append('sourceLink', inputSource);
 
         if (inputFileImage) {
             formData.append('image_url', inputFileImage);
@@ -188,6 +209,8 @@ const CriarPost: FC = () => {
             setInputImage('');
             setInputFileImage(null);
             setInputTag(['All']);
+            setInputDownload('');
+            setInputSource('');
         }
 
         try {
@@ -222,12 +245,12 @@ const CriarPost: FC = () => {
         <MainContainer>
             <SectionPainel>
                 <DivTitulo>
-                    <label htmlFor="title">Title</label>
+                    <label>Title</label>
                     <input type="text" name="title" value={inputTitle} onChange={(e) => setInputTitle(e.target.value)} />
                 </DivTitulo>
 
                 <DivDescription>
-                    <label htmlFor="description">Description</label>
+                    <label>Description</label>
                     <QuillText value={inputDescription} setState={setInputDescription} />
                 </DivDescription>
 
@@ -254,6 +277,13 @@ const CriarPost: FC = () => {
                         ))}
                     </DivTagsButtons>
                 </DivTags>
+
+                <DivDownloadLink>
+                    <label>Download Link</label>
+                    <input type="text" name="download" value={inputDownload} onChange={(e) => setInputDownload(e.target.value)} />
+                    <label>Source Link</label>
+                    <input type="text" name="source" value={inputSource} onChange={(e) => setInputSource(e.target.value)} />
+                </DivDownloadLink>
 
                 <DivSubmit>
                     <button onClick={() => handleSubmitPost()}>Create Post</button>

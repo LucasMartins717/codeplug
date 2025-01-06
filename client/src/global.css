@@ -15,6 +15,8 @@
     --icon-color: #000000;
     --post-first-linear-color: #f8ecb3;
     --post-second-linear-color: #dbd6aa;
+    --post-button-first-linear-color: #000000;
+    --post-button-second-linear-color: #ffffff;
 }
 
 [data-theme="dark"] {
@@ -27,6 +29,8 @@
     --icon-color: #ffffff;
     --post-first-linear-color: #1f1f1f;
     --post-second-linear-color: #202020;
+    --post-button-first-linear-color: #e2e2e2;
+    --post-button-second-linear-color: #c7c7c7;
 }
 
 body {

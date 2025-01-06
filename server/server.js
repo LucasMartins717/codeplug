@@ -50,12 +50,12 @@ app.get("/posts/:id", async (req, res) => {
 
 app.post('/posts', upload.single('image_url'), async (req, res) => {
 
-    const { title, description, tags } = req.body
+    const { title, description, tags, downloadLink, sourceLink } = req.body
     const image_url = req.file ? `http://localhost:3030/uploads/images/${req.file.filename}` : req.body.image_url;
     const parsedTags = JSON.parse(tags);
 
-    if (!title || !description || !tags || !image_url) {
-        return res.status(400).json({ error: "Title, description, image, and tags are required!" })
+    if (!title || !description || !tags || !image_url || !downloadLink || !sourceLink) {
+        return res.status(400).json({ error: "Title, description, image, tags, download link and source link are required!" })
     }
 
     if (title.lenght > 40) {
@@ -66,7 +66,7 @@ app.post('/posts', upload.single('image_url'), async (req, res) => {
     }
 
     try {
-        const response = await db.query('INSERT INTO posts(title, description, image_url, tags) VALUES ($1, $2, $3, $4)', [title, description, image_url, parsedTags])
+        const response = await db.query('INSERT INTO posts(title, description, image_url, tags, download_link, source_link) VALUES ($1, $2, $3, $4, $5, $6)', [title, description, image_url, parsedTags, downloadLink, sourceLink])
 
         if (!response) {
             console.error(MESSAGES.ERROR.POST_NOT_FOUND);

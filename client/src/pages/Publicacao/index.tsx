@@ -42,14 +42,15 @@ const DivButtonDownload = styled.div`
 
     button{
         width: 48%;
-        font-size: 1.4em;
         padding: 0.2em 0;
         border: 1px solid black;
         border-radius: 0.2em;
         background: linear-gradient(130deg, var(--post-button-first-linear-color), var(--post-button-second-linear-color));
-        
+        font-size: 1.4em; 
+        cursor: pointer;  
+
         a{
-            color: black;
+            color: var(--post-button-title-color);
             text-decoration: none;
         }
     }

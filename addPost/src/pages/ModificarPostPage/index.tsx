@@ -19,7 +19,7 @@ const SectionPainel = styled.section`
     flex-direction: column;
     align-items: start;
     width: 40em;
-    height: 35.7em;
+    height: 44em;
     padding: 0.6em 1em;
     background-color: var(--cor-background-escuro);
     border-radius: 0.4em;
@@ -103,6 +103,17 @@ const DivTagsButtons = styled.div`
         color: var(--cor-background-claro);
     }
 `
+const DivDownloadLink = styled.div`
+    margin-top: 1em;
+    
+    label{
+        font-size: 1.5em;
+    }
+
+    input{
+        margin-bottom: 0.1em;
+    }
+`
 const DivSubmit = styled.div`
     display: flex;
     justify-content: center;
@@ -133,6 +144,8 @@ const ModificarPostPage: FC = () => {
     const [inputImage, setInputImage] = useState<string>(currentPost?.image_url || "");
     const [inputFileImage, setInputFileImage] = useState<File | null>(null);
     const [inputTag, setInputTag] = useState<string[]>(currentPost?.tags || []);
+    const [inputDownloadLink, setInputDownloadLink] = useState<string>('');
+    const [inputSourceLink, setInputSourceLink] = useState<string>('');
 
     const postCheck = (): boolean => {
         if (inputTitle.length < 5 || inputTitle.length > 40) {
@@ -245,6 +258,13 @@ const ModificarPostPage: FC = () => {
                         ))}
                     </DivTagsButtons>
                 </DivTags>
+
+                <DivDownloadLink>
+                    <label>Download Link</label>
+                    <input type="text" name="download" value={currentPost?.download_link} onChange={(e) => setInputDownloadLink(e.target.value)} />
+                    <label>Source Link</label>
+                    <input type="text" name="source" value={currentPost?.source_link} onChange={(e) => setInputSourceLink(e.target.value)} />
+                </DivDownloadLink>
 
                 <DivSubmit>
                     <button onClick={() => handleSubmitPost()}>Modify Post</button>

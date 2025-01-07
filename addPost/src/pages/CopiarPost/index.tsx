@@ -37,6 +37,8 @@ const CopiarPost: FC = () => {
                 title: ${postCopy.title}\n\
                 description: ${postCopy.description}\n\
                 tags: ${postCopy.tags}\n\
+                download-link: ${postCopy.download_link}\n\
+                source-link: ${postCopy.source_link}\n\
                 `
 
                 await navigator.clipboard.writeText(formatedText);

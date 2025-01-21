@@ -7,8 +7,36 @@ import CabecalhoSecundario from "../../components/CabecalhoSecundario";
 
 
 const SectionPost = styled.section`
-    padding: 0 25%;
-    `
+    padding: 0 24vw;
+
+    @media (max-width: 1500px){
+        padding: 0 20vw;
+    }
+
+    @media (max-width: 1150px){
+        padding: 0 15vw;
+    }
+
+    @media (max-width: 790px){
+        padding: 0 11vw;
+    }
+
+    @media (max-width: 725px){
+        margin-top: 1em;
+        padding: 0 6vw;
+    }
+
+    @media (max-width: 570px){
+        padding: 0 3vw;
+    }
+
+    @media (max-width: 450px){
+        padding: 0;
+    }
+
+
+
+`
 const DivPost = styled.div`
     display: flex;
     flex-direction: column;
@@ -27,6 +55,33 @@ const DivPostImages = styled.div`
 
     img{
         height: 22em;
+    }
+
+
+    @media (max-width: 725px){
+        img{
+            height: 17em;
+        }
+    }
+
+    @media (max-width: 570px){
+        img{
+            height: 14em;
+        }
+
+        h1{
+            font-size: 1.6em;
+        }
+    }
+
+    @media (max-width: 450px){
+        img{
+            height: 12em;
+        }
+
+        h1{
+            font-size: 1.3em;
+        }
     }
 
 `
@@ -52,6 +107,15 @@ const DivButtonDownload = styled.div`
         a{
             color: var(--post-button-title-color);
             text-decoration: none;
+        }
+    }
+
+    @media(max-width: 370px){
+        flex-direction: column;
+        gap: 0.5em;
+
+        button{
+            width: 100%;
         }
     }
 `

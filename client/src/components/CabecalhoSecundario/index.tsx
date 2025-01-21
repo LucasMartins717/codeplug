@@ -44,6 +44,38 @@ const HeaderContainer = styled.header`
     button:hover{
         scale: 1.2;
     }
+
+    @media (max-width: 820px){
+        img{
+            width: 4em;
+        }
+
+        button{
+            margin-top: 2%;
+        }
+    }
+
+    @media (max-width: 725px){
+        img{
+            width: 3.5em,;
+        }
+
+        button{
+            margin-top: 2.3%;
+        }
+    }
+
+    @media (max-width: 400px){
+        button{
+            margin-top: 2.8%;
+        }
+    }
+
+    @media (max-width: 350px){
+        img{
+            width: 3.4em;
+        }
+    }
 `
 
 const CabecalhoSecundario: FC = () => {

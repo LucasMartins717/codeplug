@@ -31,6 +31,32 @@ const HeaderContainer = styled.header`
     button:hover{
         scale: 1.2;
     }
+
+    @media (max-width: 580px){
+
+        button{
+            margin-top: 2%;
+        }
+
+    }
+
+    @media (max-width: 480px){
+
+        img{
+            width: 4em;
+        }
+
+        button{
+            margin-top: 3%;
+        }
+
+    }
+
+    @media (max-width: 387px){
+        img{
+            width: 3.2em;
+        }
+    }
 `
 const DivContainer = styled.div`
     display: flex;
@@ -41,6 +67,18 @@ const DivContainer = styled.div`
 
     p{
         font-size: 1.3em;
+    }
+
+    @media (max-width: 480px){
+        p{
+            font-size: 0.98em;
+        }
+    }
+
+    @media (max-width: 387px){
+        p{
+            font-size: 0.75em;
+        }
     }
 `
 const DivContainerTitulo = styled.div`
@@ -53,6 +91,18 @@ const DivContainerTitulo = styled.div`
 
     h1:last-child{
         color: var(--color-title-green);
+    }
+
+    @media (max-width: 480px){
+        h1{
+            font-size: 3em;
+        }
+    }
+
+    @media (max-width: 387px){
+        h1{
+            font-size: 2.3em;
+        }
     }
 `
 

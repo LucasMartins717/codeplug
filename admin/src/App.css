@@ -1,0 +1,16 @@
+:root{
+  --cor-background-claro: #807f9b;
+  --cor-background-escuro: #2d2a4e;
+  --cor-fonte-clara: #bebceb;
+}
+
+
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body{
+  background-color: var(--cor-background-claro);
+}

@@ -27,12 +27,46 @@ const FilterDiv = styled.div`
     h2:hover{
         color: var(--font-hover-color);
     }
+
+    @media (max-width: 570px){
+        h2{
+            font-size: 4vw;
+        }
+    }
+
+    @media (max-width: 500px){
+        h2{
+            font-size: 3.6vw;
+        }
+    }
+
+    @media (max-width: 387px){
+        h2{
+            font-size: 3.3vw;
+        }
+    }
+
+    @media (max-width: 360px){
+        h2{
+            font-size: 3.1vw;
+        }
+    }
+
+    @media (max-width: 360px){
+        h2{
+            font-size: 3.7vw;
+        }
+    }
 `
 const PostsDiv = styled.div`
     display: flex;
     justify-content: space-between;
     flex-wrap: wrap;
     margin-top: 2em;
+
+    @media (max-width: 570px){
+        justify-content: center;
+    }
 `
 
 const Inicio: FC = () => {

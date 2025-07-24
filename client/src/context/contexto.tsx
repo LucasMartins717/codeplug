@@ -1,4 +1,4 @@
-import axios from "axios";
+//import axios from "axios";
 import { createContext, FC, ReactNode, useContext, useEffect, useState } from "react";
 
 interface interfaceContexto {
@@ -39,22 +39,22 @@ export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
             }
         }
 
-        const fetchPosts = async () => {
-            try {
-                const response = await axios.get('http://localhost:3030/posts', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                })
-                if (!response) {
-                    throw new Error('Erro ao conectar com o servidor!')
-                }
-                setPosts(response.data);
-            } catch (err) {
-                console.error("Erro ao buscar dados no servidor: " + err);
-            }
-        }
+        //const fetchPosts = async () => {
+        //    try {
+        //        const response = await axios.get('http://localhost:3030/posts', {
+        //            method: 'GET',
+        //            headers: {
+        //                'Content-Type': 'application/json',
+        //            },
+        //        })
+        //        if (!response) {
+        //            throw new Error('Erro ao conectar com o servidor!')
+        //        }
+        //        setPosts(response.data);
+        //    } catch (err) {
+        //        console.error("Erro ao buscar dados no servidor: " + err);
+        //    }
+        //}
         themeChange();
         //fetchPosts();
     }, [])

@@ -34,7 +34,7 @@ export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
         const themeChange = () => {
             const theme = localStorage.getItem('currentTheme')
-            if(theme === "dark"){
+            if (theme === "dark") {
                 document.documentElement.setAttribute('data-theme', 'dark');
             }
         }
@@ -56,7 +56,7 @@ export const ContextoProvider: FC<{ children: ReactNode }> = ({ children }) => {
             }
         }
         themeChange();
-        fetchPosts();
+        //fetchPosts();
     }, [])
 
     return (

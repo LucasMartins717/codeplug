@@ -1,9 +1,9 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
-import { usePostContext } from "../../context/contexto";
 import styled from "styled-components";
 import DOMPurify from "dompurify"
 import CabecalhoSecundario from "../../components/CabecalhoSecundario";
+import posts from "../../posts.json";
 
 
 const SectionPost = styled.section`
@@ -89,6 +89,10 @@ const DivPostDescription = styled.div`
     display: flex;
     flex-direction: column;
     margin-top: 1em;
+    
+    ul{
+        list-style: none;
+    }
 `
 const DivButtonDownload = styled.div`
     display: flex;
@@ -123,7 +127,6 @@ const DivButtonDownload = styled.div`
 
 const Publication: FC = () => {
 
-    const { posts } = usePostContext();
     const { postId } = useParams();
     const currentPost = posts.find((post) => post.id === Number(postId))
 
@@ -143,8 +146,8 @@ const Publication: FC = () => {
                     </DivPostDescription>
 
                     <DivButtonDownload>
-                        <button><a href={currentPost?.download_link}>Download</a></button>
-                        <button><a href={currentPost?.source_link}>Source Code</a></button>
+                        <button><a>Download</a></button>
+                        <button><a>Source Code</a></button>
                     </DivButtonDownload>
                 </DivPost>
             </SectionPost>

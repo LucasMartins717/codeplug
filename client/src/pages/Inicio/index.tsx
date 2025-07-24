@@ -1,8 +1,8 @@
-import { FC, useState } from "react";
+import { FC, useMemo, useState } from "react";
 import Cabecalho from "../../components/Cabecalho";
 import styled from "styled-components";
 import Post from "../../components/Post";
-import { usePostContext } from "../../context/contexto";
+import samplePosts from "../../posts.json";
 
 const PostsSection = styled.section`
     display: flex;
@@ -72,12 +72,18 @@ const PostsDiv = styled.div`
 const Inicio: FC = () => {
 
     const filterOptions = ['All', 'Extensions', 'Themes', 'VSCode', 'WebTools'];
-    const { posts } = usePostContext();
     const [filtroAtivo, setFiltroAtivo] = useState<string>('All');
 
     const handleActiveFilter = (e: string) => {
         setFiltroAtivo(e);
     }
+
+    const filteredPosts = useMemo(() => {
+        if (filtroAtivo === 'All') {
+            return samplePosts;
+        }
+        return samplePosts.filter(post => post.tags.includes(filtroAtivo));
+    }, [filtroAtivo]);
 
     return (
         <>
@@ -93,8 +99,13 @@ const Inicio: FC = () => {
                     ))}
                 </FilterDiv>
                 <PostsDiv>
-                    {posts.filter((post) => post.tags.includes(filtroAtivo)).map((post) => (
-                        <Post key={post.id} title={post.title} image={post.image_url} link={`/post/${post.id}`} />
+                    {filteredPosts.map(post => (
+                        <Post
+                            key={post.id}
+                            title={post.title}
+                            image={post.image_url}
+                            link={`/post/${post.id}`}
+                        />
                     ))}
                 </PostsDiv>
             </PostsSection>

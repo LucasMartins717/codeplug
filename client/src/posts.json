@@ -1,0 +1,60 @@
+[
+    {
+            "id": 1,
+            "title": "🎨 Beautiful Dark Theme",
+            "image_url": "/public/photo2.png",
+            "tags": [
+            "Themes"
+        ],
+            "description": "✨ A stunning dark theme for your coding environment! 🌙 Perfect for night coding sessions. <br><br>This theme features carefully selected color combinations that reduce eye strain during long coding sessions while maintaining excellent readability. The contrast levels have been optimized for both standard and high-resolution displays. <br><br>🎯 <strong>Key Features:</strong><ul><li>🌈 Syntax highlighting optimized for JavaScript, TypeScript, Python, and 20+ other languages</li><li>🖌️ Custom icons for files and folders</li><li>🔄 Seamless integration with popular extensions</li><li>⚙️ Customizable accent colors</li></ul><br>The theme includes special styling for comments, strings, and function declarations that makes your code more scannable and helps you navigate complex files with ease. Installation takes just seconds, and you can switch between light and dark variants with a single click. <br><br>💡 <strong>Pro tip:</strong> Pair this theme with the recommended font settings for an even better coding experience!"
+    },
+    {
+            "id": 2,
+            "title": "⚡ Productivity Extension",
+            "image_url": "/public/photo1.jpg",
+            "tags": [
+            "Extensions",
+            "VSCode"
+        ],
+            "description": "🚀 Boost your coding speed with this amazing extension! 💻 Smart suggestions and shortcuts. <br><br>This powerful productivity extension transforms the way you write code by intelligently predicting what you're trying to accomplish and offering context-aware suggestions. <br><br>🔥 <strong>Main Benefits:</strong><ul><li>⏱️ Reduces typing by up to 70% with AI-powered code completion</li><li>🧠 Learns from your coding patterns to provide increasingly relevant suggestions</li><li>📊 Provides analytics on your coding habits and areas for improvement</li><li>🔄 Integrates with version control systems for smarter commit messages</li></ul><br>The extension also includes a comprehensive snippet library for React, Angular, Vue, and other popular frameworks. These snippets cover everything from basic component structures to complex state management patterns. <br><br>⚙️ <strong>Advanced Features:</strong><br>- Real-time error detection and suggested fixes<br>- Automatic import organization and dead code removal<br>- Custom keybinding configurations for your most-used commands<br>- Team synchronization for shared snippets and settings<br><br>Whether you're a beginner looking to learn best practices or a seasoned developer aiming to maximize efficiency, this extension adapts to your skill level and grows with you."
+    },
+    {
+            "id": 3,
+            "title": "🔍 Code Inspector Tool",
+            "image_url": "/public/photo3.png",
+            "tags": [
+            "WebTools"
+        ],
+            "description": "🔎 Debug your code like a pro! 🐞 Find and fix bugs in seconds with this powerful tool. <br><br>This comprehensive debugging solution provides deep insights into your application's behavior, making even the most elusive bugs easy to track down. <br><br>🛠️ <strong>Tool Capabilities:</strong><ul><li>🔄 Real-time monitoring of application state</li><li>📊 Visual representation of call stacks and execution flow</li><li>⏱️ Performance profiling to identify bottlenecks</li><li>🧪 Automated test generation based on runtime analysis</li></ul><br>The inspector includes specialized modes for front-end and back-end debugging, with dedicated panels for DOM manipulation, network requests, memory usage, and database queries. <br><br>📱 <strong>Cross-platform Support:</strong><br>- Works seamlessly across browsers (Chrome, Firefox, Safari, Edge)<br>- Native integration with Node.js applications<br>- Mobile debugging for React Native and native apps<br>- Remote debugging capabilities for production environments<br><br>With an intuitive interface that highlights problematic code and suggests potential fixes, this tool dramatically reduces the time spent debugging and allows you to focus on building new features."
+    },
+    {
+            "id": 4,
+            "title": "💡 VSCode Snippets Collection",
+            "image_url": "/public/photo4.png",
+            "tags": [
+            "VSCode",
+            "WebTools"
+        ],
+            "description": "📝 Save time with these ready-to-use code snippets! 🕒 Perfect for repetitive coding tasks. <br><br>This comprehensive collection includes over 500 carefully crafted snippets covering modern web development frameworks and languages. <br><br>📚 <strong>Included Libraries:</strong><ul><li>⚛️ React (hooks, components, patterns)</li><li>🔄 Redux and Context API workflows</li><li>🎯 TypeScript interfaces and utility types</li><li>🖌️ CSS/SCSS mixins and animations</li></ul><br>Each snippet follows best practices and current coding standards, ensuring your code remains clean and maintainable. The collection is regularly updated to keep pace with framework changes and new language features. <br><br>🔧 <strong>Organization:</strong><br>- Logically categorized by language and framework<br>- Consistent naming conventions for easy discovery<br>- Customizable tab stops for quick navigation within snippets<br>- Documentation comments included in complex snippets<br><br>Whether you're building a simple landing page or a complex enterprise application, these snippets will significantly reduce boilerplate code and help maintain consistency across your projects."
+    },
+    {
+            "id": 5,
+            "title": "🌈 Color Palette Generator",
+            "image_url": "/public/photo5.jpg",
+            "tags": [
+            "WebTools",
+            "Extensions"
+        ],
+            "description": "🎨 Create stunning color schemes for your projects with just a few clicks! <br><br>This sophisticated color palette generator uses color theory principles to create harmonious combinations that elevate your designs. Whether you're developing websites, mobile apps, or design assets, this tool ensures your color choices are both aesthetically pleasing and accessible. <br><br>🖌️ <strong>Generator Features:</strong><ul><li>🔄 Real-time palette preview with sample UI elements</li><li>📊 Accessibility scoring for WCAG compliance</li><li>🌓 Automatic light/dark theme variant creation</li><li>📱 Preview palettes on different device mockups</li><li>📁 Export options for CSS variables, SCSS maps, Figma styles, and more</li></ul><br>The intelligent algorithm considers psychological color impacts and brand personality traits to suggest palettes that align with your project goals. Start with a single brand color, and the tool will generate complementary shades that work together perfectly. <br><br>🔍 <strong>Advanced Options:</strong><br>- Color blindness simulation to ensure inclusivity<br>- Cultural color significance reference for international projects<br>- Seasonal and trending color suggestions updated monthly<br>- Custom color space selection (RGB, HSL, LAB) for precise adjustments<br><br>The extension also includes a color picker that works across your entire system, allowing you to capture inspiration from any source. Save unlimited palettes to your library and organize them by project or theme. <br><br>💡 <strong>Designer Tip:</strong> Use the golden ratio feature to create mathematically balanced color distributions that naturally guide users through your interface hierarchy."
+    },
+    {
+            "id": 6,
+            "title": "🔒 Security Audit Extension",
+            "image_url": "/public/photo6.jpg",
+            "tags": [
+            "Extensions",
+            "VSCode"
+        ],
+            "description": "🛡️ Protect your code from vulnerabilities before they reach production! <br><br>This comprehensive security extension continuously analyzes your codebase to identify potential security risks, from common vulnerabilities to sophisticated attack vectors. By integrating directly into your development workflow, it catches issues early when they're easiest and least expensive to fix. <br><br>🔐 <strong>Security Checks:</strong><ul><li>🔍 Static code analysis for known vulnerability patterns</li><li>📦 Dependency scanning for outdated or compromised packages</li><li>🔄 API endpoint security validation</li><li>🔑 Credential and secret detection in code and configuration files</li><li>🧪 SQL injection and XSS attack simulation</li><li>🔒 Authentication and authorization flow analysis</li></ul><br>The extension maintains an up-to-date database of security best practices and known vulnerabilities, with regular updates as new threats emerge. Each identified issue includes detailed information about the risk, potential impact, and step-by-step remediation instructions. <br><br>📊 <strong>Reporting and Compliance:</strong><br>- Severity-based issue prioritization<br>- OWASP Top 10 and SANS Top 25 mapping<br>- Compliance checks for GDPR, HIPAA, PCI DSS, and other standards<br>- Team reporting with security posture trends over time<br>- Integration with issue tracking systems<br><br>The interactive learning mode explains each vulnerability type in detail, helping developers understand not just how to fix issues but why they matter. This educational approach gradually improves your team's security awareness and leads to more secure coding practices over time. <br><br>⚙️ <strong>Enterprise Features:</strong><br>- Custom rule creation for organization-specific requirements<br>- Integration with CI/CD pipelines for automated security gates<br>- Policy enforcement with optional commit blocking for critical issues<br>- Centralized management of security rules and exceptions<br><br>Whether you're a solo developer or part of a large team, this extension provides the tools you need to build more secure applications without slowing down your development process."
+    }
+]
